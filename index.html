@@ -108,7 +108,6 @@ textarea{min-height:84px;resize:vertical}
 .up input{position:absolute;inset:0;opacity:0;cursor:pointer;padding:0}
 .up-ico{font-size:26px;margin-bottom:6px}
 .up-sub{font-size:11px;color:var(--mu);margin-top:4px}
-/* --- new: customer photo upload --- */
 .photo-box{position:relative;border:2px dashed #c7d0e6;border-radius:14px;padding:20px 18px;background:#fafbff;transition:.15s;text-align:center;color:var(--mu)}
 .photo-box.dr{border-color:var(--p);background:#f6f2ff;border-style:solid;box-shadow:0 0 0 4px rgba(124,58,237,.12);transform:scale(1.005)}
 .photo-box.has-photo{padding:14px;background:#fff;border-style:solid;border-color:#d1d5db}
@@ -133,7 +132,6 @@ textarea{min-height:84px;resize:vertical}
 .photo-hint a{color:var(--b);text-decoration:underline}
 .thanks-photo{width:96px;height:96px;border-radius:50%;overflow:hidden;margin:0 auto 16px;border:4px solid #fff;box-shadow:0 8px 24px rgba(11,21,51,.15)}
 .thanks-photo img{width:100%;height:100%;object-fit:cover;display:block}
-/* --- end new --- */
 .tg{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px;margin-top:12px}
 .tb{position:relative;aspect-ratio:1;border-radius:12px;overflow:hidden;background:var(--navy)}
 .tb img{width:100%;height:100%;object-fit:cover}
@@ -249,12 +247,28 @@ textarea{min-height:84px;resize:vertical}
 <script>
 /* =========================================================
    🔐 CONFIG
-   ADMIN_USER/ADMIN_PASS ship to the browser — treat them as
-   a "speed bump", not real auth. Real protection = the GitHub
-   token, which lives only in your own browser's localStorage.
+   Credentials are base64-encoded — this is OBFUSCATION, not
+   encryption. Anyone with the page source can decode them.
+   Real protection = the GitHub token, which lives only in
+   your own browser's localStorage, plus hosting the admin
+   URL behind Cloudflare Access / Netlify Identity / etc.
+   To change credentials, run in a browser console:
+       btoa("yournewvalue")
 ========================================================= */
-const ADMIN_USER = 'papweldcore';
-const ADMIN_PASS = 'papweldcore@2026';
+const AUTH_ENC = {
+  u: 'cGFwd2VsZGNvcmU=',        // "papweldcore"
+  p: 'cGFwd2VsZGNvcmVAMjAyNg==' // "papweldcore@2026"
+};
+const b64decUTF8 = s => {
+  try {
+    const bin = atob(s);
+    const bytes = Uint8Array.from(bin, c => c.charCodeAt(0));
+    return new TextDecoder().decode(bytes);
+  } catch(e){ return ''; }
+};
+const ADMIN_USER = b64decUTF8(AUTH_ENC.u);
+const ADMIN_PASS = b64decUTF8(AUTH_ENC.p);
+
 const REVIEW_EMAIL = 'reviews@papweld.com';   /* fallback channel for photos */
 
 const isAdminMode = () =>
@@ -274,7 +288,6 @@ let cfg={
 try{Object.assign(cfg,JSON.parse(localStorage.getItem(CK)||'{}'))}catch(e){}
 
 const LOCAL_DELAY=800, CLOUD_DELAY=5000, MAX_REVIEW=1500, MAX_TITLE=120;
-const MIN_FILL_MS=3000;
 const RATING_LABELS={1:'Poor',2:'Fair',3:'Good',4:'Very Good',5:'Excellent'};
 const MAX_PHOTO_LOCAL=1000;      /* long-edge px for local storage */
 const MAX_PHOTO_WEBHOOK=600;     /* long-edge px sent to webhook */
@@ -294,8 +307,6 @@ let isLoggedIn=sessionStorage.getItem(LK)==='yes';
 let view='dash', activeId=null, q='', sortBy='newest', dirty=false, saving=false, lastSave=null, tL, tC;
 let customerStage='form';
 let lastSubmitted=null;
-
-const pageLoadTs=Date.now();
 
 const $=s=>document.querySelector(s);
 const $$=s=>Array.from(document.querySelectorAll(s));
@@ -341,6 +352,18 @@ function toast(m,t){
   const e=$('#toast');e.textContent=m;e.className='toast show '+(t||'');
   clearTimeout(toastT);toastT=setTimeout(()=>e.className='toast',2800);
 }
+
+/* =========================================================
+   ✅ FIX #3 — single global paste listener.
+   bindCustomer() runs on every render; previously it added a
+   new 'paste' listener each time (they were never removed).
+   Now we add ONE listener here and let bindCustomer set
+   window.__custPaste to the current handler.
+========================================================= */
+window.__custPaste = null;
+document.addEventListener('paste', e => {
+  if(typeof window.__custPaste === 'function') window.__custPaste(e);
+});
 
 /* =========================================================
    MODEL
@@ -593,8 +616,6 @@ async function ghLoad(){
 async function postWebhook(t){
   if(!cfg.webhook)return false;
   try{
-    /* Build a compact payload. The photo is compressed to ~600px JPEG
-       so most endpoints (Formspree, GAS, Zapier) accept it. */
     const body={
       _subject:`New review from ${t.customerName||'a customer'}`,
       _source:'papweldcore-reviews',
@@ -1021,13 +1042,12 @@ function bindCustomer(){
     if(!dt)return;
     const f=dt.files&&dt.files[0];
     if(f){handleFile(f);return;}
-    /* fallback: item list */
     const it=dt.items&&dt.items[0];
     if(it&&it.kind==='file'){const g=it.getAsFile();if(g)handleFile(g);}
   });
 
-  /* paste — Ctrl/Cmd + V anywhere on the page while form is active */
-  function onPaste(e){
+  /* ---------- ✅ FIX #3: register the paste handler for the ONE global listener ---------- */
+  window.__custPaste = function(e){
     if(customerStage!=='form')return;
     const items=(e.clipboardData&&e.clipboardData.items)||[];
     for(const it of items){
@@ -1036,8 +1056,7 @@ function bindCustomer(){
         if(f){handleFile(f);e.preventDefault();return;}
       }
     }
-  }
-  document.addEventListener('paste',onPaste);
+  };
 
   /* ---------- privacy link fallback ---------- */
   const pLink=document.getElementById('privacyLink');
@@ -1048,19 +1067,44 @@ function bindCustomer(){
     });
   }
 
-  /* ---------- submit ---------- */
+  /* ---------- ✅ FIX #1 + #5: submit with real validation ---------- */
   form.addEventListener('submit',async e=>{
     e.preventDefault();
 
+    /* Honeypot — real bot protection. On trip, show thanks but save nothing. */
     const hp=form.querySelector('[name=website]');
     if(hp&&hp.value){customerStage='thanks';lastSubmitted=null;render();return;}
 
-    if(Date.now()-pageLoadTs<MIN_FILL_MS){
-      customerStage='thanks';lastSubmitted=null;render();return;
+    const fd=new FormData(form);
+    const customerName=(fd.get('customerName')||'').trim();
+    const companyName =(fd.get('companyName') ||'').trim();
+    const reviewTitle =(fd.get('reviewTitle') ||'').trim();
+    const reviewText  =(fd.get('reviewText')  ||'').trim();
+
+    /* ✅ Required-field validation (the form is `novalidate`, so we do it here) */
+    if(!customerName){
+      toast('Please enter your name','er');
+      form.querySelector('[name=customerName]').focus();
+      return;
+    }
+    if(!companyName){
+      toast('Please enter your company name','er');
+      form.querySelector('[name=companyName]').focus();
+      return;
     }
     if(!currentRating){
       toast('Please pick a star rating','er');
       starsEl.scrollIntoView({behavior:'smooth',block:'center'});
+      return;
+    }
+    if(!reviewTitle){
+      toast('Please add a review headline','er');
+      form.querySelector('[name=reviewTitle]').focus();
+      return;
+    }
+    if(!reviewText){
+      toast('Please write your review','er');
+      form.querySelector('[name=reviewText]').focus();
       return;
     }
     const consent=form.querySelector('[name=consent]');
@@ -1069,16 +1113,15 @@ function bindCustomer(){
       consent.focus();return;
     }
 
-    const fd=new FormData(form);
     const t=mk({
-      customerName:(fd.get('customerName')||'').trim(),
-      companyName:(fd.get('companyName')||'').trim(),
+      customerName,
+      companyName,
       designation:(fd.get('designation')||'').trim(),
       location:(fd.get('location')||'').trim(),
       machines:(fd.get('machines')||'').trim(),
       heardFrom:(fd.get('heardFrom')||'').trim(),
-      reviewTitle:(fd.get('reviewTitle')||'').trim(),
-      reviewText:(fd.get('reviewText')||'').trim(),
+      reviewTitle,
+      reviewText,
       rating:currentRating,
       publishPermission:!!fd.get('publishPermission'),
       source:'customer',
@@ -1110,6 +1153,7 @@ function bindCustomer(){
   });
 }
 
+/* ---------- ✅ FIX #2: previewSample now really sets the rating ---------- */
 window.previewSample=function(){
   const form=document.getElementById('custForm');
   if(!form)return;
@@ -1125,17 +1169,16 @@ window.previewSample=function(){
   };
   Object.keys(s).forEach(k=>{
     const el=form.querySelector('[name="'+k+'"]');
-    if(el)el.value=s[k];
+    if(el){
+      el.value=s[k];
+      /* fire input so character counters update */
+      el.dispatchEvent(new Event('input',{bubbles:true}));
+    }
   });
-  const starsEl=document.getElementById('custStars');
-  if(starsEl){
-    starsEl.dataset.rating=5;
-    starsEl.querySelectorAll('span').forEach(sp=>{
-      sp.classList.toggle('on',+sp.dataset.v<=5);
-      sp.setAttribute('aria-checked',+sp.dataset.v===5?'true':'false');
-    });
-    document.getElementById('custRatingLabel').textContent='5 — Excellent';
-  }
+  /* Click the real 5-star span — this drives the closure variable
+     that the submit handler reads, so Submit actually works. */
+  const star5=document.querySelector('#custStars [data-v="5"]');
+  if(star5)star5.click();
   const consent=form.querySelector('[name=consent]');
   if(consent)consent.checked=true;
   toast('Sample data filled — click Submit to see Thank You page','ok');
@@ -1148,8 +1191,10 @@ window.previewSample=function(){
 async function loadPublicReviews(){
   const el=document.getElementById('pubReviews');
   if(!el)return;
+  /* ✅ FIX #4: when logged in, only show testimonials the customer
+     permitted us to publish — never leak un-permitted ones. */
   if(isLoggedIn&&S.testimonials.length){
-    renderPublicReviews(S.testimonials,el);
+    renderPublicReviews(S.testimonials.filter(t=>t.publishPermission),el);
     return;
   }
   try{
