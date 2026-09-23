@@ -64,7 +64,7 @@ textarea{min-height:84px;resize:vertical}
 .btn.pri{background:var(--grad);color:#fff;border:0;box-shadow:0 6px 18px rgba(124,58,237,.3)}
 .btn.dk{background:var(--navy);color:#fff;border-color:var(--navy)}
 .btn.dn{color:#b91c1c;background:#fef2f2;border-color:#fecaca}
-.btn:disabled{opacity:.5}
+.btn:disabled{opacity:.5;cursor:wait;transform:none!important}
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 .grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
 .stats{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin-bottom:22px}
@@ -90,6 +90,7 @@ textarea{min-height:84px;resize:vertical}
 .tc-body{padding:12px 16px 16px}
 .tc-title{font-weight:700;font-size:14px;margin-bottom:6px;line-height:1.35}
 .tc-text{font-size:12.5px;color:#475569;line-height:1.55;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.tc-when{font-size:11px;color:var(--mu);text-align:right;margin-top:8px}
 .sec{padding:22px;margin-bottom:18px}
 .sec h3{font-size:12px;letter-spacing:1px;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px}
 .sec h3 span{width:24px;height:24px;border-radius:8px;background:var(--grad);color:#fff;display:grid;place-items:center;font-size:12px}
@@ -97,13 +98,42 @@ textarea{min-height:84px;resize:vertical}
 .g2{display:grid;gap:14px;grid-template-columns:1fr 1fr}
 .cc{text-align:right;font-size:11px;color:var(--mu);margin-top:4px}.cc.x{color:var(--er)}
 .stars{display:flex;gap:6px;font-size:34px;line-height:1;user-select:none}
-.stars span{color:#d1d5db;cursor:pointer;transition:.15s}
+.stars span{color:#d1d5db;cursor:pointer;transition:.15s;border-radius:4px}
 .stars span:hover,.stars span.on{color:var(--a);transform:scale(1.1)}
+.stars span:focus-visible{outline:2px solid var(--b);outline-offset:3px;transform:scale(1.1)}
 .rating-label{font-size:12px;color:var(--mu);margin-top:6px;font-weight:600}
 .up{position:relative;border:2px dashed #c7d0e6;border-radius:14px;padding:22px;text-align:center;background:#fafbff;color:var(--mu);transition:.15s;cursor:pointer}
-.up:hover,.up.dr{border-color:var(--p);background:#f6f2ff}
+.up:hover,.up.dr{border-color:var(--p);background:#f6f2ff;transform:scale(1.005)}
+.up.dr{border-style:solid;box-shadow:0 0 0 4px rgba(124,58,237,.12)}
 .up input{position:absolute;inset:0;opacity:0;cursor:pointer;padding:0}
 .up-ico{font-size:26px;margin-bottom:6px}
+.up-sub{font-size:11px;color:var(--mu);margin-top:4px}
+/* --- new: customer photo upload --- */
+.photo-box{position:relative;border:2px dashed #c7d0e6;border-radius:14px;padding:20px 18px;background:#fafbff;transition:.15s;text-align:center;color:var(--mu)}
+.photo-box.dr{border-color:var(--p);background:#f6f2ff;border-style:solid;box-shadow:0 0 0 4px rgba(124,58,237,.12);transform:scale(1.005)}
+.photo-box.has-photo{padding:14px;background:#fff;border-style:solid;border-color:#d1d5db}
+.photo-drop{cursor:pointer;user-select:none}
+.photo-drop .up-ico{font-size:30px;margin-bottom:4px}
+.photo-drop b{display:block;font-size:13px;color:var(--tx);margin-bottom:3px;font-weight:700}
+.photo-drop small{font-size:11.5px;color:var(--mu);line-height:1.5;display:block}
+.photo-drop small.kbd{display:inline-block;background:#eef1f8;border:1px solid #d6dbe8;border-radius:5px;padding:1px 6px;font-family:ui-monospace,Menlo,monospace;font-size:10.5px;color:#475569;margin:0 2px}
+.photo-input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.photo-preview{display:flex;align-items:center;gap:14px;text-align:left}
+.photo-thumb{width:80px;height:80px;border-radius:12px;overflow:hidden;background:var(--navy);flex:none;box-shadow:0 4px 12px rgba(11,21,51,.15)}
+.photo-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.photo-info{flex:1;min-width:0}
+.photo-info b{display:block;font-size:13px;color:var(--tx);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-bottom:2px}
+.photo-info small{font-size:11px;color:var(--mu)}
+.photo-info .ok{color:#059669;font-weight:700}
+.photo-actions{display:flex;flex-direction:column;gap:6px;flex:none}
+.photo-actions button{padding:6px 12px;border-radius:8px;font-size:11.5px;font-weight:700;border:1.5px solid var(--line);background:#fff}
+.photo-actions button:hover{border-color:var(--b);color:var(--b)}
+.photo-actions button.rm{color:#b91c1c;border-color:#fecaca;background:#fef2f2}
+.photo-hint{font-size:11.5px;color:var(--mu);margin-top:10px;line-height:1.55;text-align:center}
+.photo-hint a{color:var(--b);text-decoration:underline}
+.thanks-photo{width:96px;height:96px;border-radius:50%;overflow:hidden;margin:0 auto 16px;border:4px solid #fff;box-shadow:0 8px 24px rgba(11,21,51,.15)}
+.thanks-photo img{width:100%;height:100%;object-fit:cover;display:block}
+/* --- end new --- */
 .tg{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px;margin-top:12px}
 .tb{position:relative;aspect-ratio:1;border-radius:12px;overflow:hidden;background:var(--navy)}
 .tb img{width:100%;height:100%;object-fit:cover}
@@ -122,8 +152,9 @@ textarea{min-height:84px;resize:vertical}
 .edtop{position:sticky;top:64px;z-index:30;display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:12px 16px;margin-bottom:18px}
 .edtop h2{flex:1;font-size:16px;min-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .empty{text-align:center;padding:70px 20px;color:var(--mu)}.empty div{font-size:52px;margin-bottom:10px}
-.alert{padding:12px 16px;border-radius:12px;background:#fffbeb;border:1px solid #fde68a;color:#92400e;font-size:12.5px;margin-bottom:16px}
+.alert{padding:12px 16px;border-radius:12px;background:#fffbeb;border:1px solid #fde68a;color:#92400e;font-size:12.5px;margin-bottom:16px;line-height:1.55}
 .alert.ok{background:#f0fdf4;border-color:#bbf7d0;color:#166534}
+.alert.err{background:#fef2f2;border-color:#fecaca;color:#991b1b}
 .privacy{background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:14px;margin-top:14px;font-size:12.5px;color:#1e40af;line-height:1.6}
 .privacy b{font-weight:800}
 .login-wrap{min-height:100vh;display:grid;place-items:center;padding:20px;background:radial-gradient(circle at 20% 10%,rgba(244,81,30,.08),transparent 40%),radial-gradient(circle at 80% 90%,rgba(124,58,237,.08),transparent 40%),var(--bg)}
@@ -150,6 +181,30 @@ textarea{min-height:84px;resize:vertical}
 .cust-card h3{font-size:12px;letter-spacing:1px;text-transform:uppercase;margin-bottom:16px;color:var(--mu);font-weight:700}
 .cust-foot{text-align:center;padding:20px 16px;color:var(--mu);font-size:12px}
 .cust-foot b{color:var(--tx);font-weight:700}
+.hp{position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important;overflow:hidden!important;opacity:0!important;pointer-events:none!important}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:12.5px;color:var(--mu);line-height:1.55;cursor:pointer}
+.consent input{width:auto;flex:none;margin-top:2px;accent-color:var(--b)}
+.consent a{color:var(--b);text-decoration:underline}
+.pub-section{max-width:560px;margin:36px auto 0}
+.pub-section h2{font-size:18px;font-weight:800;margin-bottom:6px;display:flex;align-items:center;gap:10px}
+.pub-summary{font-size:12.5px;color:var(--mu);margin-bottom:16px;font-weight:600}
+.pub-card{background:#fff;border-radius:16px;padding:18px;box-shadow:0 4px 16px rgba(11,21,51,.06);border:1px solid var(--line);margin-bottom:12px}
+.pub-head{display:flex;gap:12px;align-items:flex-start;margin-bottom:10px}
+.pub-av{width:44px;height:44px;border-radius:50%;background:var(--grad);color:#fff;display:grid;place-items:center;font:800 16px Montserrat;flex:none;overflow:hidden}
+.pub-av img{width:100%;height:100%;object-fit:cover}
+.pub-meta{flex:1;min-width:0}
+.pub-name{font-weight:700;font-size:14px;margin-bottom:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pub-co{font-size:11.5px;color:var(--mu);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pub-when{font-size:10.5px;color:var(--mu);white-space:nowrap;font-weight:600}
+.pub-stars{color:var(--a);font-size:13px;letter-spacing:.5px;margin-bottom:8px}
+.pub-title{font-weight:700;font-size:13.5px;margin-bottom:5px;line-height:1.35}
+.pub-text{font-size:12.5px;color:#475569;line-height:1.6;white-space:pre-wrap}
+.pub-skel{background:#fff;border-radius:16px;padding:18px;margin-bottom:12px;border:1px solid var(--line)}
+.pub-skel div{height:11px;background:linear-gradient(90deg,#eef1f7,#e0e5f0,#eef1f7);background-size:200% 100%;animation:sh 1.4s infinite;border-radius:6px;margin-bottom:8px}
+.pub-skel div:nth-child(1){width:35%}
+.pub-skel div:nth-child(2){width:90%}
+.pub-skel div:nth-child(3){width:70%}
+@keyframes sh{0%{background-position:200% 0}100%{background-position:-200% 0}}
 .thanks-wrap{min-height:100vh;display:grid;place-items:center;padding:24px 16px;background:radial-gradient(circle at 50% 0%,rgba(16,185,129,.08),transparent 50%),radial-gradient(circle at 50% 100%,rgba(29,78,216,.08),transparent 50%),var(--bg)}
 .thanks-card{max-width:520px;width:100%;background:#fff;border-radius:24px;padding:48px 32px 36px;text-align:center;box-shadow:0 20px 60px rgba(11,21,51,.12);border:1px solid var(--line);position:relative;overflow:hidden;animation:pop .4s ease}
 @keyframes pop{0%{opacity:0;transform:scale(.95) translateY(10px)}100%{opacity:1;transform:none}}
@@ -160,11 +215,30 @@ textarea{min-height:84px;resize:vertical}
 .thanks-card p{color:var(--mu);font-size:15px;line-height:1.7;margin-bottom:24px}
 .thanks-quote{background:linear-gradient(135deg,#f0fdf4,#ecfdf5);border-left:4px solid #10b981;border-radius:12px;padding:16px 18px;text-align:left;font-style:italic;color:#065f46;font-size:13.5px;line-height:1.6;margin-bottom:24px}
 .thanks-quote b{font-style:normal;font-weight:700;color:#047857}
+.share-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
+.share-btn{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:10px;font-size:12.5px;font-weight:700;text-decoration:none;background:#fff;border:1.5px solid var(--line);color:var(--tx);cursor:pointer;transition:.15s}
+.share-btn:hover{transform:translateY(-1px);box-shadow:var(--sh)}
+.share-btn.wa{background:#25d366;color:#fff;border-color:#25d366}
 .toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,30px);background:var(--navy);color:#fff;padding:12px 22px;border-radius:99px;font-weight:600;opacity:0;pointer-events:none;transition:.3s;z-index:200;box-shadow:var(--sh);max-width:90vw;text-align:center}
 .toast.show{opacity:1;transform:translate(-50%,0)}.toast.ok{background:#047857}.toast.er{background:#b91c1c}
 .ov{display:none}
-@media(max-width:860px){.side{transform:translateX(-100%)}.side.open{transform:none}.main{margin-left:0}.burger{display:block}
-.ov.show{display:block;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:45}.top{padding:12px 14px}.top input{display:none}.pg{padding:16px 14px 60px}.g2{grid-template-columns:1fr}.edtop{top:60px}}
+.sort-sel{max-width:180px;padding:9px 12px;font-size:12.5px}
+@media(max-width:860px){
+  .side{transform:translateX(-100%)}.side.open{transform:none}.main{margin-left:0}.burger{display:block}
+  .ov.show{display:block;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:45}
+  .top{padding:10px 12px;gap:8px;flex-wrap:wrap}
+  .top h1{font-size:16px;flex:1;order:1;min-width:0}
+  .burger{order:0}
+  .top input{display:block;max-width:none;flex:1 0 100%;order:4;padding:8px 12px;font-size:13px}
+  .pill{order:2;padding:7px 11px;font-size:11px}
+  #saveNow{order:3;padding:9px 13px;font-size:12px}
+  .pg{padding:16px 14px 60px}.g2{grid-template-columns:1fr}.edtop{top:60px}
+  .sort-sel{max-width:none;width:100%}
+  .photo-preview{flex-direction:column;align-items:stretch;text-align:center}
+  .photo-thumb{margin:0 auto}
+  .photo-actions{flex-direction:row}
+  .photo-actions button{flex:1}
+}
 </style>
 </head>
 <body>
@@ -175,26 +249,53 @@ textarea{min-height:84px;resize:vertical}
 <script>
 /* =========================================================
    🔐 CONFIG
+   ADMIN_USER/ADMIN_PASS ship to the browser — treat them as
+   a "speed bump", not real auth. Real protection = the GitHub
+   token, which lives only in your own browser's localStorage.
 ========================================================= */
 const ADMIN_USER = 'papweldcore';
 const ADMIN_PASS = 'papweldcore@2026';
+const REVIEW_EMAIL = 'reviews@papweld.com';   /* fallback channel for photos */
 
-const ADMIN_MODE = location.hash === '#admin' ||
-  new URLSearchParams(location.search).has('admin');
+const isAdminMode = () =>
+  location.hash === '#admin' || new URLSearchParams(location.search).has('admin');
 
 const CK='papweld_gh_t', DB='papweld_test_v6', LK='papweld_login_t';
 
-let cfg={owner:'darkwebnew',repo:'papweldcore-reviews',branch:'main',token:'',dataPath:'testimonials.json'};
+let cfg={
+  owner:'darkwebnew',
+  repo:'papweldcore-reviews',
+  branch:'main',
+  token:'',
+  dataPath:'testimonials.json',
+  webhook:'',
+  privacyUrl:''
+};
 try{Object.assign(cfg,JSON.parse(localStorage.getItem(CK)||'{}'))}catch(e){}
 
 const LOCAL_DELAY=800, CLOUD_DELAY=5000, MAX_REVIEW=1500, MAX_TITLE=120;
+const MIN_FILL_MS=3000;
 const RATING_LABELS={1:'Poor',2:'Fair',3:'Good',4:'Very Good',5:'Excellent'};
+const MAX_PHOTO_LOCAL=1000;      /* long-edge px for local storage */
+const MAX_PHOTO_WEBHOOK=600;     /* long-edge px sent to webhook */
+const PHOTO_QUALITY_LOCAL=0.82;
+const PHOTO_QUALITY_WEBHOOK=0.7;
+
+const MACHINES=[
+  'PTW - Pull Thru Welding Machine',
+  'H-Beam Welding Line',
+  'Column & Boom Welding System',
+  'Rotator & Positioner',
+  'Custom Automation Solution'
+];
 
 let S={testimonials:[]};
-let isLoggedIn = sessionStorage.getItem(LK)==='yes';
-let view='dash', activeId=null, q='', dirty=false, saving=false, lastSave=null, tL, tC;
+let isLoggedIn=sessionStorage.getItem(LK)==='yes';
+let view='dash', activeId=null, q='', sortBy='newest', dirty=false, saving=false, lastSave=null, tL, tC;
 let customerStage='form';
 let lastSubmitted=null;
+
+const pageLoadTs=Date.now();
 
 const $=s=>document.querySelector(s);
 const $$=s=>Array.from(document.querySelectorAll(s));
@@ -204,14 +305,42 @@ const RAW=p=>`https://raw.githubusercontent.com/${cfg.owner}/${cfg.repo}/${cfg.b
 const src=i=>i?(i.dataUrl||i.url||''):'';
 const cloud=()=>!!(cfg.owner&&cfg.repo&&cfg.token);
 const stars=n=>'★'.repeat(n)+'☆'.repeat(5-n);
-const avgRating=()=>{
-  const p=S.testimonials.filter(t=>t.publishPermission);
+const avgRating=(items)=>{
+  const p=(items||S.testimonials).filter(t=>t.publishPermission);
   if(!p.length)return 0;
   return Math.round((p.reduce((s,t)=>s+t.rating,0)/p.length)*10)/10;
 };
 
+function ago(iso){
+  if(!iso)return '';
+  const d=new Date(iso);
+  if(isNaN(d))return '';
+  const s=Math.floor((Date.now()-d.getTime())/1000);
+  if(s<60)return 'just now';
+  const m=Math.floor(s/60);if(m<60)return m+'m ago';
+  const h=Math.floor(m/60);if(h<24)return h+'h ago';
+  const dy=Math.floor(h/24);if(dy<30)return dy+'d ago';
+  const mo=Math.floor(dy/30);if(mo<12)return mo+'mo ago';
+  return Math.floor(mo/12)+'y ago';
+}
+
+function b64enc(str){
+  const bytes=new TextEncoder().encode(str);
+  let bin='';
+  for(let i=0;i<bytes.length;i++)bin+=String.fromCharCode(bytes[i]);
+  return btoa(bin);
+}
+function b64dec(b64){
+  const bin=atob(String(b64).replace(/\n/g,''));
+  const bytes=Uint8Array.from(bin,c=>c.charCodeAt(0));
+  return new TextDecoder().decode(bytes);
+}
+
 let toastT;
-function toast(m,t){const e=$('#toast');e.textContent=m;e.className='toast show '+(t||'');clearTimeout(toastT);toastT=setTimeout(()=>e.className='toast',2800)}
+function toast(m,t){
+  const e=$('#toast');e.textContent=m;e.className='toast show '+(t||'');
+  clearTimeout(toastT);toastT=setTimeout(()=>e.className='toast',2800);
+}
 
 /* =========================================================
    MODEL
@@ -226,6 +355,7 @@ function mk(preset){
     location:p.location||'',
     photo:null,
     machines:p.machines||'',
+    heardFrom:p.heardFrom||'',
     rating:p.rating||5,
     reviewTitle:p.reviewTitle||'',
     reviewText:p.reviewText||'',
@@ -234,7 +364,7 @@ function mk(preset){
     featured:false,
     publishPermission:!!p.publishPermission,
     source:p.source||'admin',
-    seenByAdmin:false,
+    seenByAdmin:!!p.seenByAdmin,
     isSample:!!p.isSample,
     createdAt:new Date().toISOString()
   });
@@ -246,6 +376,7 @@ function hyd(t){
   t.designation=t.designation||'';
   t.location=t.location||'';
   t.machines=t.machines||'';
+  t.heardFrom=t.heardFrom||'';
   t.rating=Math.max(1,Math.min(5,+t.rating||5));
   t.reviewTitle=t.reviewTitle||'';
   t.reviewText=t.reviewText||'';
@@ -255,6 +386,7 @@ function hyd(t){
   t.publishPermission=!!t.publishPermission;
   t.source=t.source||'admin';
   t.seenByAdmin=!!t.seenByAdmin;
+  t.isSample=!!t.isSample;
   t.createdAt=t.createdAt||new Date().toISOString();
   t.photo=t.photo||null;
   return t;
@@ -270,6 +402,7 @@ const SAMPLE={
   designation:"Production Manager",
   location:"Chennai, Tamil Nadu",
   machines:"PTW - Pull Thru Welding Machine",
+  heardFrom:"Existing customer",
   rating:5,
   reviewTitle:"Innovative Team. Best automatic machines I've used.",
   reviewText:"We purchased the PTW Pull Thru Welding Machine from PAP Weld Core Automation last year and it has been a game changer for our H-beam production. The welding quality is consistent and the PLC control makes it easy for our operators to switch between different beam sizes. Their engineering team supported us throughout installation and the machine has run without any major downtime since. Highly recommended for any structural steel fabricator looking to upgrade their welding line.",
@@ -277,7 +410,8 @@ const SAMPLE={
   verified:true,
   featured:true,
   publishPermission:true,
-  isSample:true
+  isSample:true,
+  seenByAdmin:true
 };
 
 /* =========================================================
@@ -319,11 +453,16 @@ function touch(){
 function pill(state,txt){
   const p=$('#pill');if(!p)return;
   let c='',t;
+  const unpublished=S.testimonials.filter(x=>!x.publishPermission).length;
   if(saving){c='sync';t='Saving…'}
   else if(state==='err'){c='err';t=txt||'Save failed'}
   else if(dirty){c='dirty';t=cloud()?'Unsaved · autosave soon':'Saved on this device'}
   else if(!cloud()){t='Saved locally'}
-  else{c='ok';t=lastSave?'Saved '+lastSave.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):'Connected'}
+  else{
+    c='ok';
+    const base=lastSave?'Saved '+lastSave.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):'Connected';
+    t=unpublished?base+' · '+unpublished+' local-only':base;
+  }
   p.className='pill '+c;$('#pt').textContent=t;
 }
 
@@ -363,6 +502,7 @@ function clean(t,inline){
     location:t.location.trim(),
     photo:f(t.photo),
     machines:t.machines.trim(),
+    heardFrom:(t.heardFrom||'').trim(),
     rating:t.rating,
     reviewTitle:t.reviewTitle.trim(),
     reviewText:t.reviewText.trim(),
@@ -371,6 +511,8 @@ function clean(t,inline){
     featured:!!t.featured,
     publishPermission:!!t.publishPermission,
     source:t.source,
+    seenByAdmin:!!t.seenByAdmin,
+    isSample:!!t.isSample,
     createdAt:t.createdAt
   };
 }
@@ -400,16 +542,20 @@ async function ghSave(manual){
   if(saving)return;
   saving=true;pill();clearTimeout(tC);
   try{
-    for(const t of S.testimonials){
+    const published=S.testimonials.filter(t=>t.publishPermission);
+    for(const t of published){
       await upload(t.photo,`testimonials/${t.id}-photo.jpg`);
     }
-    const b64=btoa(unescape(encodeURIComponent(JSON.stringify(payload(false),null,2))));
+    const b64=b64enc(JSON.stringify(payload(false,true),null,2));
     const ex=await ghGet(cfg.dataPath).catch(()=>null);
     await ghPut(cfg.dataPath,b64,ex&&ex.sha);
     saveLocal();
     dirty=false;lastSave=new Date();saving=false;
     pill();
-    if(manual)toast('Saved to GitHub ✓','ok');
+    if(manual){
+      const hidden=S.testimonials.length-published.length;
+      toast(hidden?`Saved ${published.length} to GitHub · ${hidden} local-only`:'Saved to GitHub ✓','ok');
+    }
   }catch(e){
     console.warn(e);
     saving=false;dirty=true;
@@ -423,17 +569,67 @@ async function ghLoad(){
   try{
     const f=await ghGet(cfg.dataPath);
     if(!f)return toast('No testimonials.json in repo yet','er');
-    const raw=JSON.parse(decodeURIComponent(escape(atob(f.content.replace(/\n/g,'')))));
-    S.testimonials=(raw.testimonials||[]).map(r=>hyd({
+    const raw=JSON.parse(b64dec(f.content));
+    const cloudItems=(raw.testimonials||[]).map(r=>hyd({
       ...r,
       photo:r.photo?{...r.photo,dataUrl:null}:null
     }));
+    const localOnly=S.testimonials.filter(t=>!t.publishPermission);
+    const cloudIds=new Set(cloudItems.map(t=>t.id));
+    const kept=localOnly.filter(t=>!cloudIds.has(t.id));
+    S.testimonials=[...cloudItems,...kept];
     saveLocal();
     dirty=false;lastSave=new Date();activeId=null;
     render();
-    toast('Loaded ✓','ok');
+    toast(kept.length?`Loaded ✓ · kept ${kept.length} local-only`:'Loaded ✓','ok');
   }catch(e){
     toast('Load failed: '+e.message.slice(0,60),'er');
+  }
+}
+
+/* =========================================================
+   WEBHOOK (for remote customer submissions)
+========================================================= */
+async function postWebhook(t){
+  if(!cfg.webhook)return false;
+  try{
+    /* Build a compact payload. The photo is compressed to ~600px JPEG
+       so most endpoints (Formspree, GAS, Zapier) accept it. */
+    const body={
+      _subject:`New review from ${t.customerName||'a customer'}`,
+      _source:'papweldcore-reviews',
+      customerName:t.customerName,
+      companyName:t.companyName,
+      designation:t.designation,
+      location:t.location,
+      machines:t.machines,
+      heardFrom:t.heardFrom,
+      rating:t.rating,
+      reviewTitle:t.reviewTitle,
+      reviewText:t.reviewText,
+      publishPermission:t.publishPermission,
+      reviewDate:t.reviewDate,
+      createdAt:t.createdAt,
+      id:t.id
+    };
+    if(t.photo&&t.photo.dataUrl){
+      try{
+        const small=await compressTo(t.photo.dataUrl,MAX_PHOTO_WEBHOOK,PHOTO_QUALITY_WEBHOOK);
+        body.photoBase64=small.split(',')[1];
+        body.photoMime='image/jpeg';
+        body.photoFilename=(t.photo.filename||'photo.jpg').replace(/\.\w+$/,'')+'.jpg';
+      }catch(e){console.warn('photo compress for webhook failed',e)}
+    }
+    const r=await fetch(cfg.webhook,{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify(body)
+    });
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    return true;
+  }catch(e){
+    console.warn('Webhook failed:',e);
+    return false;
   }
 }
 
@@ -442,7 +638,7 @@ async function ghLoad(){
 ========================================================= */
 function render(){
   const app=document.getElementById('app');
-  if(ADMIN_MODE){
+  if(isAdminMode()){
     if(!isLoggedIn){
       app.innerHTML=renderLogin('admin');
       bindLogin('admin');
@@ -450,7 +646,6 @@ function render(){
     }
     app.innerHTML=renderAdminShell();
     renderAdminView();
-    bindAdmin();
     return;
   }
   if(customerStage==='thanks'){
@@ -459,7 +654,13 @@ function render(){
   }
   app.innerHTML=renderCustomerForm();
   bindCustomer();
+  loadPublicReviews();
 }
+
+addEventListener('hashchange',()=>{
+  if(activeId)activeId=null;
+  render();
+});
 
 /* =========================================================
    LOGIN
@@ -516,6 +717,8 @@ function bindLogin(mode){
    CUSTOMER FORM
 ========================================================= */
 function renderCustomerForm(){
+  const machineOpts=MACHINES.map(m=>`<option value="${esc(m)}"></option>`).join('');
+  const privacyHref=cfg.privacyUrl?esc(cfg.privacyUrl):'#';
   return `
     <div class="cust-wrap">
       <div class="cust-container">
@@ -525,43 +728,89 @@ function renderCustomerForm(){
           <h1>Share Your Experience</h1>
           <p>Thank you for choosing PAP Weld Core Automation.<br>Your feedback helps us serve you better.</p>
         </div>
-        <form id="custForm">
+        <form id="custForm" novalidate>
+          <div class="hp" aria-hidden="true">
+            <label>Leave this empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+          </div>
+
           <div class="cust-card">
             <h3>About you</h3>
             <div class="g2">
-              <div class="fg"><label>Your name *</label><input name="customerName" required placeholder="e.g. Anbarasu M"></div>
-              <div class="fg"><label>Company name *</label><input name="companyName" required placeholder="e.g. Sri Venkateswara Fabricators"></div>
-              <div class="fg"><label>Designation</label><input name="designation" placeholder="e.g. Production Manager"></div>
-              <div class="fg"><label>City</label><input name="location" placeholder="e.g. Chennai, Tamil Nadu"></div>
+              <div class="fg"><label>Your name *</label><input name="customerName" required autocomplete="name" placeholder="e.g. Anbarasu M"></div>
+              <div class="fg"><label>Company name *</label><input name="companyName" required autocomplete="organization" placeholder="e.g. Sri Venkateswara Fabricators"></div>
+              <div class="fg"><label>Designation</label><input name="designation" autocomplete="organization-title" placeholder="e.g. Production Manager"></div>
+              <div class="fg"><label>City</label><input name="location" autocomplete="address-level2" placeholder="e.g. Chennai, Tamil Nadu"></div>
             </div>
           </div>
+
+          <div class="cust-card">
+            <h3>Your photo or company logo</h3>
+            <div class="photo-box" id="photoBox">
+              <input class="photo-input" type="file" accept="image/*" id="photoInput" aria-label="Upload photo">
+              <div class="photo-drop" id="photoDrop">
+                <div class="up-ico">📷</div>
+                <b>Drop a photo here</b>
+                <small>or click to browse · or paste from clipboard <span class="kbd">Ctrl</span><span class="kbd">V</span></small>
+                <small>JPG or PNG, up to 5 MB. We'll compress it automatically.</small>
+              </div>
+              <div class="photo-preview" id="photoPreview" style="display:none"></div>
+            </div>
+            <div class="photo-hint">
+              Optional. A photo of your team, machine, or company logo helps other buyers trust your review.
+              Prefer to email it? Send to <a href="mailto:${REVIEW_EMAIL}?subject=My%20review%20photo">${REVIEW_EMAIL}</a>.
+            </div>
+          </div>
+
           <div class="cust-card">
             <h3>Your machine</h3>
             <div class="fg">
               <label>Which machine did you purchase?</label>
-              <input name="machines" placeholder="e.g. PTW - Pull Thru Welding Machine">
+              <input name="machines" list="machineList" placeholder="e.g. PTW - Pull Thru Welding Machine">
+              <datalist id="machineList">${machineOpts}</datalist>
+            </div>
+            <div class="fg">
+              <label>How did you hear about us?</label>
+              <select name="heardFrom">
+                <option value="">Prefer not to say</option>
+                <option>Dealer</option>
+                <option>Trade show / Exhibition</option>
+                <option>Google search</option>
+                <option>Referral from another fabricator</option>
+                <option>Existing customer</option>
+                <option>Social media</option>
+                <option>Other</option>
+              </select>
             </div>
           </div>
+
           <div class="cust-card">
-            <h3>How would you rate us?</h3>
-            <div class="stars" id="custStars" data-rating="5">
-              <span data-v="1">★</span><span data-v="2">★</span><span data-v="3">★</span><span data-v="4">★</span><span data-v="5">★</span>
+            <h3>How would you rate us? *</h3>
+            <div class="stars" id="custStars" data-rating="0" role="radiogroup" aria-label="Star rating">
+              <span role="radio" tabindex="0" aria-checked="false" aria-label="1 star" data-v="1">★</span>
+              <span role="radio" tabindex="0" aria-checked="false" aria-label="2 stars" data-v="2">★</span>
+              <span role="radio" tabindex="0" aria-checked="false" aria-label="3 stars" data-v="3">★</span>
+              <span role="radio" tabindex="0" aria-checked="false" aria-label="4 stars" data-v="4">★</span>
+              <span role="radio" tabindex="0" aria-checked="false" aria-label="5 stars" data-v="5">★</span>
             </div>
-            <div class="rating-label" id="custRatingLabel">5 — Excellent</div>
+            <div class="rating-label" id="custRatingLabel">Tap a star to rate</div>
           </div>
+
           <div class="cust-card">
             <h3>Your review</h3>
             <div class="fg">
               <label>Headline *</label>
               <input name="reviewTitle" required maxlength="${MAX_TITLE}" placeholder="e.g. Excellent machines and support">
+              <div class="cc" id="cTitleCount">0 / ${MAX_TITLE}</div>
             </div>
             <div class="fg">
               <label>Tell us about your experience *</label>
               <textarea name="reviewText" required rows="6" maxlength="${MAX_REVIEW}" placeholder="What did you like? How has the machine performed? Would you recommend us?"></textarea>
+              <div class="cc" id="cTextCount">0 / ${MAX_REVIEW}</div>
             </div>
           </div>
+
           <div class="cust-card">
-            <h3>Permission</h3>
+            <h3>Permission &amp; consent</h3>
             <label class="tg-item on" id="permToggle">
               <input type="checkbox" name="publishPermission" checked>
               <div class="tg-check">✓</div>
@@ -569,8 +818,13 @@ function renderCustomerForm(){
                 <small>Your name, company name and review will be shown publicly</small>
               </div>
             </label>
+            <label class="consent" style="margin-top:16px">
+              <input type="checkbox" name="consent" required>
+              <span>I agree that my information will be used to process this testimonial as described in the <a href="${privacyHref}" id="privacyLink" ${cfg.privacyUrl?'target="_blank" rel="noopener"':''}>Privacy Policy</a>. *</span>
+            </label>
           </div>
-          <button type="submit" class="btn pri" style="width:100%;justify-content:center;padding:15px;font-size:15px">
+
+          <button type="submit" class="btn pri" id="custSubmit" style="width:100%;justify-content:center;padding:15px;font-size:15px">
             ✓ Submit my review
           </button>
         </form>
@@ -581,64 +835,281 @@ function renderCustomerForm(){
           <b>PAP Weld Core Automation Private Limited</b><br>
           Chennai, Tamil Nadu · papweld.com
         </div>
+
+        <div class="pub-section" id="pubReviews">
+          <div class="pub-skel"><div></div><div></div><div></div></div>
+        </div>
       </div>
     </div>
   `;
 }
+
+/* ---------- shared image compressor ---------- */
+function loadImageFromDataUrl(dataUrl){
+  return new Promise((res,rej)=>{
+    const im=new Image();
+    im.onload=()=>res(im);
+    im.onerror=rej;
+    im.src=dataUrl;
+  });
+}
+function loadImageFromFile(file){
+  return new Promise((res,rej)=>{
+    const r=new FileReader();
+    r.onload=()=>loadImageFromDataUrl(r.result).then(res,rej);
+    r.onerror=rej;
+    r.readAsDataURL(file);
+  });
+}
+async function compressImage(img,maxDim,quality){
+  const s=Math.min(1,maxDim/Math.max(img.width,img.height));
+  const w=Math.max(1,Math.round(img.width*s));
+  const h=Math.max(1,Math.round(img.height*s));
+  const c=document.createElement('canvas');
+  c.width=w;c.height=h;
+  c.getContext('2d').drawImage(img,0,0,w,h);
+  return {dataUrl:c.toDataURL('image/jpeg',quality),width:w,height:h};
+}
+async function compressTo(dataUrl,maxDim,quality){
+  const im=await loadImageFromDataUrl(dataUrl);
+  const r=await compressImage(im,maxDim,quality);
+  return r.dataUrl;
+}
+async function compressFile(file,maxDim,quality){
+  const im=await loadImageFromFile(file);
+  const r=await compressImage(im,maxDim,quality);
+  return {filename:file.name.replace(/\.\w+$/,'')+'.jpg',dataUrl:r.dataUrl,width:r.width,height:r.height,size:file.size,origName:file.name};
+}
+
 function bindCustomer(){
+  const form=document.getElementById('custForm');
+  if(!form)return;
+
+  /* ---------- stars ---------- */
   const starsEl=document.getElementById('custStars');
+  let currentRating=0;
   if(starsEl){
     const paint=v=>{
-      starsEl.querySelectorAll('span').forEach(s=>s.classList.toggle('on',+s.dataset.v<=v));
-      document.getElementById('custRatingLabel').textContent=v+' — '+RATING_LABELS[v];
+      starsEl.querySelectorAll('span').forEach(s=>{
+        const on=+s.dataset.v<=v;
+        s.classList.toggle('on',on);
+        s.setAttribute('aria-checked',+s.dataset.v===v?'true':'false');
+      });
+      const lbl=document.getElementById('custRatingLabel');
+      lbl.textContent=v?v+' — '+RATING_LABELS[v]:'Tap a star to rate';
     };
-    paint(5);
     starsEl.addEventListener('click',e=>{
       const s=e.target.closest('span');if(!s)return;
-      const v=+s.dataset.v;
-      starsEl.dataset.rating=v;
-      paint(v);
+      currentRating=+s.dataset.v;
+      starsEl.dataset.rating=currentRating;
+      paint(currentRating);
     });
+    starsEl.addEventListener('keydown',e=>{
+      const c=currentRating||0;let v=c;
+      if(e.key==='ArrowRight'||e.key==='ArrowUp')v=Math.min(5,c+1);
+      else if(e.key==='ArrowLeft'||e.key==='ArrowDown')v=Math.max(1,c-1);
+      else if(e.key>='1'&&e.key<='5')v=+e.key;
+      else if(e.key===' '||e.key==='Enter'){const t=e.target.closest('span');if(t)v=+t.dataset.v;}
+      else return;
+      e.preventDefault();
+      currentRating=v;starsEl.dataset.rating=v;paint(v);
+      starsEl.querySelector(`[data-v="${v}"]`)?.focus();
+    });
+    paint(0);
   }
+
+  /* ---------- character counters ---------- */
+  const tIn=form.querySelector('[name=reviewTitle]');
+  const xIn=form.querySelector('[name=reviewText]');
+  const tCount=document.getElementById('cTitleCount');
+  const xCount=document.getElementById('cTextCount');
+  if(tIn&&tCount)tIn.addEventListener('input',()=>{
+    tCount.textContent=tIn.value.length+' / '+MAX_TITLE;
+    tCount.className='cc'+(tIn.value.length>MAX_TITLE?' x':'');
+  });
+  if(xIn&&xCount)xIn.addEventListener('input',()=>{
+    xCount.textContent=xIn.value.length+' / '+MAX_REVIEW;
+    xCount.className='cc'+(xIn.value.length>MAX_REVIEW?' x':'');
+  });
+
+  /* ---------- permission toggle ---------- */
   const perm=document.getElementById('permToggle');
   if(perm){
     const cb=perm.querySelector('input[type=checkbox]');
-    perm.addEventListener('click',e=>{
-      if(e.target.tagName==='INPUT')return;
-      cb.checked=!cb.checked;
-      perm.classList.toggle('on',cb.checked);
-    });
     cb.addEventListener('change',()=>perm.classList.toggle('on',cb.checked));
   }
-  const form=document.getElementById('custForm');
+
+  /* ---------- photo upload: click / drag / paste ---------- */
+  let custPhoto=null;   /* {filename,dataUrl,width,height,size} */
+  const photoBox=document.getElementById('photoBox');
+  const photoInput=document.getElementById('photoInput');
+  const photoDrop=document.getElementById('photoDrop');
+  const photoPreview=document.getElementById('photoPreview');
+
+  function paintPhoto(){
+    if(!custPhoto){
+      photoBox.classList.remove('has-photo');
+      photoDrop.style.display='';
+      photoPreview.style.display='none';
+      photoPreview.innerHTML='';
+      return;
+    }
+    photoBox.classList.add('has-photo');
+    photoDrop.style.display='none';
+    photoPreview.style.display='';
+    const kb=Math.round((custPhoto.dataUrl.length*0.75)/1024);
+    photoPreview.innerHTML=`
+      <div class="photo-thumb"><img src="${esc(custPhoto.dataUrl)}" alt=""></div>
+      <div class="photo-info">
+        <b>${esc(custPhoto.origName||custPhoto.filename||'photo.jpg')}</b>
+        <small class="ok">✓ Ready — ${custPhoto.width}×${custPhoto.height}px · ~${kb} KB</small>
+      </div>
+      <div class="photo-actions">
+        <button type="button" id="photoReplace">↻ Replace</button>
+        <button type="button" id="photoRemove" class="rm">✕ Remove</button>
+      </div>
+    `;
+    document.getElementById('photoReplace').addEventListener('click',()=>photoInput.click());
+    document.getElementById('photoRemove').addEventListener('click',()=>{
+      custPhoto=null;paintPhoto();
+      toast('Photo removed');
+    });
+  }
+  paintPhoto();
+
+  async function handleFile(file){
+    if(!file)return;
+    if(!/^image\//i.test(file.type)){
+      toast('Please choose an image file','er');return;
+    }
+    if(file.size>5*1024*1024){
+      toast('Image too large — max 5 MB','er');return;
+    }
+    toast('Compressing photo…');
+    try{
+      custPhoto=await compressFile(file,MAX_PHOTO_LOCAL,PHOTO_QUALITY_LOCAL);
+      paintPhoto();
+      toast('Photo added ✓','ok');
+    }catch(e){
+      console.warn(e);
+      toast('Could not read image','er');
+    }
+  }
+
+  photoInput?.addEventListener('change',e=>{
+    const f=e.target.files&&e.target.files[0];
+    if(f)handleFile(f);
+    e.target.value=''; /* allow picking the same file again */
+  });
+
+  /* drag & drop — bind to the whole box, not just the inner label */
+  ['dragenter','dragover'].forEach(ev=>
+    photoBox?.addEventListener(ev,e=>{
+      e.preventDefault();e.stopPropagation();
+      photoBox.classList.add('dr');
+    })
+  );
+  ['dragleave','drop'].forEach(ev=>
+    photoBox?.addEventListener(ev,e=>{
+      e.preventDefault();e.stopPropagation();
+      if(ev==='dragleave'&&photoBox.contains(e.relatedTarget))return;
+      photoBox.classList.remove('dr');
+    })
+  );
+  photoBox?.addEventListener('drop',e=>{
+    const dt=e.dataTransfer;
+    if(!dt)return;
+    const f=dt.files&&dt.files[0];
+    if(f){handleFile(f);return;}
+    /* fallback: item list */
+    const it=dt.items&&dt.items[0];
+    if(it&&it.kind==='file'){const g=it.getAsFile();if(g)handleFile(g);}
+  });
+
+  /* paste — Ctrl/Cmd + V anywhere on the page while form is active */
+  function onPaste(e){
+    if(customerStage!=='form')return;
+    const items=(e.clipboardData&&e.clipboardData.items)||[];
+    for(const it of items){
+      if(it.kind==='file'&&/^image\//i.test(it.type)){
+        const f=it.getAsFile();
+        if(f){handleFile(f);e.preventDefault();return;}
+      }
+    }
+  }
+  document.addEventListener('paste',onPaste);
+
+  /* ---------- privacy link fallback ---------- */
+  const pLink=document.getElementById('privacyLink');
+  if(pLink&&!cfg.privacyUrl){
+    pLink.addEventListener('click',e=>{
+      e.preventDefault();
+      alert('Privacy: your name, company, review and any uploaded photo are used only to process and (if permitted) display this testimonial. Request removal at any time by contacting PAP Weld Core.');
+    });
+  }
+
+  /* ---------- submit ---------- */
   form.addEventListener('submit',async e=>{
     e.preventDefault();
+
+    const hp=form.querySelector('[name=website]');
+    if(hp&&hp.value){customerStage='thanks';lastSubmitted=null;render();return;}
+
+    if(Date.now()-pageLoadTs<MIN_FILL_MS){
+      customerStage='thanks';lastSubmitted=null;render();return;
+    }
+    if(!currentRating){
+      toast('Please pick a star rating','er');
+      starsEl.scrollIntoView({behavior:'smooth',block:'center'});
+      return;
+    }
+    const consent=form.querySelector('[name=consent]');
+    if(consent&&!consent.checked){
+      toast('Please tick the consent box','er');
+      consent.focus();return;
+    }
+
     const fd=new FormData(form);
-    const rating=+document.getElementById('custStars').dataset.rating||5;
     const t=mk({
       customerName:(fd.get('customerName')||'').trim(),
       companyName:(fd.get('companyName')||'').trim(),
       designation:(fd.get('designation')||'').trim(),
       location:(fd.get('location')||'').trim(),
       machines:(fd.get('machines')||'').trim(),
+      heardFrom:(fd.get('heardFrom')||'').trim(),
       reviewTitle:(fd.get('reviewTitle')||'').trim(),
       reviewText:(fd.get('reviewText')||'').trim(),
-      rating:rating,
+      rating:currentRating,
       publishPermission:!!fd.get('publishPermission'),
-      source:'customer'
+      source:'customer',
+      seenByAdmin:false
     });
     t.verified=false;
     t.featured=false;
+    if(custPhoto)t.photo={filename:custPhoto.filename,dataUrl:custPhoto.dataUrl};
+
+    const btn=document.getElementById('custSubmit');
+    btn.disabled=true;
+    btn.textContent='Submitting…';
+
     S.testimonials.unshift(t);
     saveLocal();
-    if(cloud()){
-      try{await ghSave(false);}catch(e){console.warn('Silent sync failed:',e);}
+
+    /* 1. Deliver to webhook (works for every customer) */
+    if(cfg.webhook){
+      postWebhook(t).catch(err=>console.warn('webhook',err));
     }
+    /* 2. Push to GitHub if this browser happens to hold an admin token */
+    if(cloud()){
+      try{await ghSave(false);}catch(err){console.warn('Silent sync failed:',err);}
+    }
+
     lastSubmitted=t;
     customerStage='thanks';
     render();
   });
 }
+
 window.previewSample=function(){
   const form=document.getElementById('custForm');
   if(!form)return;
@@ -648,6 +1119,7 @@ window.previewSample=function(){
     designation:"Production Manager",
     location:"Chennai, Tamil Nadu",
     machines:"PTW - Pull Thru Welding Machine",
+    heardFrom:"Existing customer",
     reviewTitle:"Innovative Team. Best automatic machines I've used.",
     reviewText:"We purchased the PTW Pull Thru Welding Machine from PAP Weld Core Automation last year and it has been a game changer for our H-beam production. The welding quality is consistent and the PLC control makes it easy for our operators to switch between different beam sizes."
   };
@@ -658,22 +1130,126 @@ window.previewSample=function(){
   const starsEl=document.getElementById('custStars');
   if(starsEl){
     starsEl.dataset.rating=5;
-    starsEl.querySelectorAll('span').forEach(sp=>sp.classList.toggle('on',+sp.dataset.v<=5));
+    starsEl.querySelectorAll('span').forEach(sp=>{
+      sp.classList.toggle('on',+sp.dataset.v<=5);
+      sp.setAttribute('aria-checked',+sp.dataset.v===5?'true':'false');
+    });
     document.getElementById('custRatingLabel').textContent='5 — Excellent';
   }
+  const consent=form.querySelector('[name=consent]');
+  if(consent)consent.checked=true;
   toast('Sample data filled — click Submit to see Thank You page','ok');
   form.scrollIntoView({behavior:'smooth',block:'start'});
 };
+
+/* =========================================================
+   PUBLIC REVIEWS
+========================================================= */
+async function loadPublicReviews(){
+  const el=document.getElementById('pubReviews');
+  if(!el)return;
+  if(isLoggedIn&&S.testimonials.length){
+    renderPublicReviews(S.testimonials,el);
+    return;
+  }
+  try{
+    const url=RAW(cfg.dataPath);
+    const r=await fetch(url,{cache:'no-store'});
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    const data=await r.json();
+    const items=(data.testimonials||[]).filter(t=>t.publishPermission);
+    renderPublicReviews(items,el);
+  }catch(e){
+    el.innerHTML='';
+  }
+}
+
+function renderPublicReviews(items,el){
+  const sorted=[...items].sort((a,b)=>{
+    if(a.featured!==b.featured)return a.featured?-1:1;
+    return String(b.reviewDate||'').localeCompare(String(a.reviewDate||''));
+  });
+  if(!sorted.length){
+    el.innerHTML=`
+      <h2>⭐ What our customers say</h2>
+      <p class="pub-summary">Be the first to share your experience with PAP Weld Core.</p>
+    `;
+    return;
+  }
+  const avg=Math.round((sorted.reduce((s,t)=>s+t.rating,0)/sorted.length)*10)/10;
+  el.innerHTML=`
+    <h2>⭐ What our customers say</h2>
+    <p class="pub-summary">${avg.toFixed(1)} average from ${sorted.length} review${sorted.length>1?'s':''}</p>
+    ${sorted.map(publicCard).join('')}
+  `;
+  injectJsonLd(sorted,avg);
+}
+
+function publicCard(t){
+  const photo=src(t.photo);
+  const initial=(t.customerName||'?').trim()[0].toUpperCase();
+  const badges=[];
+  if(t.verified)badges.push('<span class="tc-badge badge-verified">✓ Verified</span>');
+  if(t.featured)badges.push('<span class="tc-badge badge-featured">★ Featured</span>');
+  const meta=[t.designation,t.companyName,t.location].filter(Boolean).map(esc).join(' · ');
+  return `
+    <div class="pub-card">
+      <div class="pub-head">
+        <div class="pub-av">${photo?`<img src="${esc(photo)}" alt="">`:initial}</div>
+        <div class="pub-meta">
+          <div class="pub-name">${esc(t.customerName||'Customer')}${badges.length?' '+badges.join(' '):''}</div>
+          <div class="pub-co">${meta}</div>
+        </div>
+        <div class="pub-when">${esc(ago(t.reviewDate||t.createdAt))}</div>
+      </div>
+      <div class="pub-stars">${stars(t.rating)}</div>
+      <div class="pub-title">${esc(t.reviewTitle||'')}</div>
+      <div class="pub-text">${esc(t.reviewText||'')}</div>
+    </div>
+  `;
+}
+
+function injectJsonLd(items,avg){
+  document.getElementById('jsonld')?.remove();
+  const org={
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "name":"PAP Weld Core Automation Private Limited",
+    "url":location.origin+location.pathname,
+    "aggregateRating":{
+      "@type":"AggregateRating",
+      "ratingValue":avg.toFixed(1),
+      "reviewCount":items.length,
+      "bestRating":5,
+      "worstRating":1
+    },
+    "review":items.slice(0,20).map(t=>({
+      "@type":"Review",
+      "author":{"@type":"Person","name":t.customerName||'Customer'},
+      "datePublished":t.reviewDate||t.createdAt,
+      "reviewBody":t.reviewText||'',
+      "name":t.reviewTitle||'',
+      "reviewRating":{"@type":"Rating","ratingValue":t.rating,"bestRating":5,"worstRating":1}
+    }))
+  };
+  const el=document.createElement('script');
+  el.type='application/ld+json';
+  el.id='jsonld';
+  el.textContent=JSON.stringify(org);
+  document.head.appendChild(el);
+}
 
 /* =========================================================
    THANK YOU
 ========================================================= */
 function renderThanks(){
   const t=lastSubmitted||{};
+  const photo=t.photo&&(t.photo.dataUrl||t.photo.url)?esc(t.photo.dataUrl||t.photo.url):'';
   return `
     <div class="thanks-wrap">
       <div class="thanks-card">
         <div class="thanks-icon">✓</div>
+        ${photo?`<div class="thanks-photo"><img src="${photo}" alt=""></div>`:''}
         <h1>Thank you, ${esc((t.customerName||'').split(' ')[0]||'friend')}!</h1>
         <p>Your review has been submitted successfully. We truly appreciate you taking the time to share your experience with us.</p>
         ${t.reviewText?`
@@ -683,6 +1259,10 @@ function renderThanks(){
           </div>
         `:''}
         <p style="font-size:13.5px">Your feedback will be reviewed and may appear on our website soon.</p>
+        <div class="share-row">
+          <a class="share-btn wa" href="#" onclick="shareWhatsApp();return false">📲 Share on WhatsApp</a>
+          <button class="share-btn" onclick="copyLink()">🔗 Copy link</button>
+        </div>
         <button class="btn pri" style="width:100%;justify-content:center;padding:14px;font-size:14px;margin-top:8px" onclick="resetCustomer()">
           Leave another review
         </button>
@@ -699,6 +1279,24 @@ window.resetCustomer=function(){
   lastSubmitted=null;
   render();
 };
+window.shareWhatsApp=function(){
+  const t=lastSubmitted||{};
+  const text=`I just reviewed PAP Weld Core Automation — ${t.rating||''}★ "${t.reviewTitle||''}". Check them out: ${location.origin}${location.pathname}`;
+  window.open('https://wa.me/?text='+encodeURIComponent(text),'_blank','noopener');
+};
+window.copyLink=function(){
+  const url=location.origin+location.pathname;
+  const fallback=()=>{
+    const el=document.createElement('textarea');
+    el.value=url;document.body.appendChild(el);el.select();
+    try{document.execCommand('copy');toast('Link copied','ok');}
+    catch(_){toast('Could not copy','er');}
+    document.body.removeChild(el);
+  };
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(url).then(()=>toast('Link copied','ok'),fallback);
+  }else fallback();
+};
 
 /* =========================================================
    ADMIN SHELL
@@ -714,7 +1312,7 @@ function renderAdminShell(){
         <button class="nv" data-v="published">✓ Published <b id="cpp">0</b></button>
         <button class="nv" data-v="pending">⚠️ Needs Review <b id="cpd">0</b></button>
         <small>SYSTEM</small>
-        <button class="nv" data-v="settings">🔐 GitHub Connection</button>
+        <button class="nv" data-v="settings">🔐 Connection</button>
       </nav>
       <div class="sf">
         <div class="row" style="justify-content:space-between"><span>Avg. rating</span><b id="gr">0.0</b></div>
@@ -746,13 +1344,13 @@ window.logoutAdmin=function(){
 /* =========================================================
    ADMIN VIEWS
 ========================================================= */
-const TITLES={dash:'Dashboard',all:'All Testimonials',published:'Published',pending:'Needs Review',settings:'GitHub Connection'};
+const TITLES={dash:'Dashboard',all:'All Testimonials',published:'Published',pending:'Needs Review',settings:'Connection'};
 
 function setView(v){
   view=v;activeId=null;q='';const qEl=$('#q');if(qEl)qEl.value='';
   renderAdminView();
-  const side=$('#side');if(side)side.classList.remove('open');
-  const ov=$('#ov');if(ov)ov.classList.remove('show');
+  $('#side')?.classList.remove('open');
+  $('#ov')?.classList.remove('show');
   scrollTo(0,0);
 }
 window.setView=setView;
@@ -763,7 +1361,7 @@ function renderAdminView(){
   if(!ct)return;
   ct.textContent=S.testimonials.length;
   cpp.textContent=S.testimonials.filter(t=>t.publishPermission).length;
-  cpd.textContent=S.testimonials.filter(t=>!t.seenByAdmin||t.source==='customer').length;
+  cpd.textContent=S.testimonials.filter(t=>!t.seenByAdmin).length;
   $$('.nv').forEach(b=>b.classList.toggle('on',b.dataset.v===view));
   const avg=avgRating();
   $('#gr').textContent=avg.toFixed(1)+' ★';
@@ -780,7 +1378,9 @@ function dashView(){
   const all=S.testimonials;
   const published=all.filter(t=>t.publishPermission);
   const avg=avgRating();
-  const newOnes=all.filter(t=>t.source==='customer'&&!t.seenByAdmin);
+  const newOnes=all.filter(t=>!t.seenByAdmin&&t.source==='customer');
+  const localOnly=all.filter(t=>!t.publishPermission);
+  const withPhotos=all.filter(t=>t.photo&&src(t.photo)).length;
   return `
     <div class="stats">
       <div class="card stat" style="--c:var(--o)"><small>Total</small><h2>${all.length}</h2></div>
@@ -788,7 +1388,10 @@ function dashView(){
       <div class="card stat" style="--c:var(--a)"><small>Avg. rating</small><h2>${avg.toFixed(1)} ★</h2></div>
       <div class="card stat" style="--c:var(--p)"><small>New (customer)</small><h2>${newOnes.length}</h2></div>
     </div>
-    ${!cloud()?'<div class="alert">⚠️ GitHub is not connected. Open <b>GitHub Connection</b> to set the token.</div>':''}
+    ${!cloud()?'<div class="alert">⚠️ GitHub is not connected. Open <b>Connection</b> to set the token. Without it nothing is pushed to your repo.</div>':''}
+    ${!cfg.webhook?'<div class="alert">📮 <b>No webhook configured.</b> Customer submissions from other devices will NOT reach you. Add a Formspree / Google Sheets / Zapier URL in <b>Connection</b>.</div>':'<div class="alert ok">📮 Webhook configured — remote submissions and photos will be delivered.</div>'}
+    ${localOnly.length?`<div class="alert">🔒 <b>${localOnly.length}</b> testimonial${localOnly.length>1?'s':''} without publish permission stay on this device only and are never uploaded to GitHub.</div>`:''}
+    ${withPhotos?`<div class="alert ok">📷 ${withPhotos} testimonial${withPhotos>1?'s':''} with photos.</div>`:''}
     <div class="row" style="margin-bottom:18px">
       <button class="btn pri" data-act="new">＋ New Testimonial</button>
       <button class="btn dk" data-act="load">⬇ Load from GitHub</button>
@@ -815,10 +1418,22 @@ function dashView(){
   `;
 }
 
+function sortList(list){
+  const arr=[...list];
+  switch(sortBy){
+    case 'oldest':arr.sort((a,b)=>String(a.createdAt).localeCompare(String(b.createdAt)));break;
+    case 'rating-high':arr.sort((a,b)=>b.rating-a.rating);break;
+    case 'rating-low':arr.sort((a,b)=>a.rating-b.rating);break;
+    case 'featured':arr.sort((a,b)=>(b.featured?1:0)-(a.featured?1:0)||String(b.createdAt).localeCompare(String(a.createdAt)));break;
+    default:arr.sort((a,b)=>String(b.createdAt).localeCompare(String(a.createdAt)));
+  }
+  return arr;
+}
+
 function listView(){
   let list=S.testimonials;
   if(view==='published')list=list.filter(t=>t.publishPermission);
-  if(view==='pending')list=list.filter(t=>!t.seenByAdmin||t.source==='customer');
+  if(view==='pending')list=list.filter(t=>!t.seenByAdmin);
   if(q){
     const ql=q.toLowerCase();
     list=list.filter(t=>
@@ -828,6 +1443,7 @@ function listView(){
       t.reviewText.toLowerCase().includes(ql)
     );
   }
+  list=sortList(list);
   const headerText={
     all:'All customer testimonials',
     published:'Only testimonials with publish permission',
@@ -837,8 +1453,15 @@ function listView(){
   const emptyText=view==='pending'?'No pending submissions':view==='published'?'Nothing published yet':'No testimonials yet';
   return `
     <div class="row" style="justify-content:space-between;margin-bottom:18px">
-      <p style="color:var(--mu)">${headerText}</p>
-      <button class="btn pri" data-act="new">＋ Add Testimonial</button>
+      <p style="color:var(--mu);flex:1;min-width:140px">${headerText}</p>
+      <select class="sort-sel" id="sortSel" aria-label="Sort testimonials">
+        <option value="newest" ${sortBy==='newest'?'selected':''}>Newest first</option>
+        <option value="oldest" ${sortBy==='oldest'?'selected':''}>Oldest first</option>
+        <option value="rating-high" ${sortBy==='rating-high'?'selected':''}>Highest rating</option>
+        <option value="rating-low" ${sortBy==='rating-low'?'selected':''}>Lowest rating</option>
+        <option value="featured" ${sortBy==='featured'?'selected':''}>Featured first</option>
+      </select>
+      <button class="btn pri" data-act="new">＋ Add</button>
     </div>
     ${list.length?`<div class="grid">${list.map(tCard).join('')}</div>`
     :`<div class="empty"><div>${emptyIcon}</div><h3>${emptyText}</h3></div>`}
@@ -852,11 +1475,11 @@ function tCard(t){
   if(t.source==='customer'&&!t.seenByAdmin)statuses.push('<span class="tc-badge badge-new">🆕 New</span>');
   if(t.verified)statuses.push('<span class="tc-badge badge-verified">✓ Verified</span>');
   if(t.featured)statuses.push('<span class="tc-badge badge-featured">★ Featured</span>');
-  if(!t.publishPermission)statuses.push('<span class="tc-badge badge-pending">⚠ No permission</span>');
+  if(!t.publishPermission)statuses.push('<span class="tc-badge badge-pending">🔒 Local only</span>');
   return `
     <div class="card tc" data-open="${t.id}">
       <div class="tc-h">
-        <div class="tc-av">${photo?`<img src="${photo}">`:initial}</div>
+        <div class="tc-av">${photo?`<img src="${esc(photo)}" alt="">`:initial}</div>
         <div class="tc-meta">
           <div class="tc-name">${esc(t.customerName||'Unnamed customer')}</div>
           <div class="tc-co">${esc(t.companyName||'No company')}${t.location?' · '+esc(t.location):''}</div>
@@ -867,12 +1490,19 @@ function tCard(t){
       <div class="tc-body">
         <div class="tc-title">${esc(t.reviewTitle||'Untitled review')}</div>
         <div class="tc-text">${esc(t.reviewText||'No review text yet')}</div>
+        <div class="tc-when">${esc(ago(t.createdAt))}${t.heardFrom?' · '+esc(t.heardFrom):''}</div>
       </div>
     </div>
   `;
 }
 
 function editor(t){
+  const starSpans=[1,2,3,4,5].map(v=>
+    `<span data-v="${v}" class="${v<=t.rating?'on':''}">★</span>`
+  ).join('');
+  const machineOpts=MACHINES.map(m=>`<option value="${esc(m)}"></option>`).join('');
+  const heardOpts=['','Dealer','Trade show / Exhibition','Google search','Referral from another fabricator','Existing customer','Social media','Other']
+    .map(o=>`<option value="${esc(o)}" ${t.heardFrom===o?'selected':''}>${o||'— not recorded —'}</option>`).join('');
   return `
     <div class="card edtop">
       <button class="btn" data-act="back">← Back</button>
@@ -889,20 +1519,26 @@ function editor(t){
         <div class="fg"><label>Location</label><input data-f="location" value="${esc(t.location)}"></div>
       </div>
       <div class="fg" style="max-width:240px">
-        <label>Customer photo</label>
+        <label>Customer photo / logo</label>
         <div class="up"><div class="up-ico">👤</div><div>Tap to add photo</div><input type="file" accept="image/*" data-up="photo"></div>
-        ${src(t.photo)?`<div class="tg"><div class="tb"><img src="${src(t.photo)}"><button data-rm="photo">✕</button></div></div>`:''}
+        ${src(t.photo)?`<div class="tg"><div class="tb"><img src="${esc(src(t.photo))}" alt=""><button data-rm="photo">✕</button></div></div>`:''}
       </div>
     </div>
     <div class="card sec">
       <h3><span>2</span>What they bought</h3>
-      <div class="fg"><label>Machine(s) purchased</label><input data-f="machines" value="${esc(t.machines)}"></div>
+      <div class="fg">
+        <label>Machine(s) purchased</label>
+        <input data-f="machines" list="editMachineList" value="${esc(t.machines)}">
+        <datalist id="editMachineList">${machineOpts}</datalist>
+      </div>
+      <div class="fg">
+        <label>Heard about us via</label>
+        <select data-f="heardFrom">${heardOpts}</select>
+      </div>
     </div>
     <div class="card sec">
       <h3><span>3</span>Rating</h3>
-      <div class="stars" id="stars" data-rating="${t.rating}">
-        <span data-v="1">★</span><span data-v="2">★</span><span data-v="3">★</span><span data-v="4">★</span><span data-v="5">★</span>
-      </div>
+      <div class="stars" id="stars" data-rating="${t.rating}">${starSpans}</div>
       <div class="rating-label" id="ratingLabel">${t.rating} — ${RATING_LABELS[t.rating]}</div>
     </div>
     <div class="card sec">
@@ -942,6 +1578,7 @@ function editor(t){
         </label>
       </div>
       ${t.source==='customer'?`<div class="alert" style="margin-top:14px">🆕 Submitted by customer — review carefully before publishing.</div>`:''}
+      ${!t.publishPermission?`<div class="alert" style="margin-top:14px">🔒 Without publish permission this record stays on this device only and is never uploaded to GitHub.</div>`:''}
     </div>
   `;
 }
@@ -964,26 +1601,44 @@ function settingsView(){
         <button class="btn dn" data-act="clearLocal">🗑 Clear local data</button>
       </div>
     </div>
+
+    <div class="card sec">
+      <h3><span>📮</span>Submission webhook</h3>
+      <div class="alert">Customers have no GitHub token, so their submissions and photos cannot be pushed to your repo directly. Add a webhook URL below and they'll be POSTed there — <b>Formspree</b>, <b>Google Apps Script</b>, <b>Zapier</b>, <b>Make.com</b> and <b>n8n</b> all work. Photos are sent as base64 in the <code>photoBase64</code> field (compressed to ~600px).</div>
+      <div class="fg">
+        <label>Webhook URL (optional)</label>
+        <input id="c_webhook" value="${esc(cfg.webhook)}" placeholder="https://formspree.io/f/xxxxxxx">
+      </div>
+      <div class="fg">
+        <label>Privacy policy URL (optional)</label>
+        <input id="c_privacyUrl" value="${esc(cfg.privacyUrl)}" placeholder="https://papweld.com/privacy">
+      </div>
+      <button class="btn pri" data-act="cfg">Save settings</button>
+    </div>
+
+    <div class="card sec">
+      <h3><span>🔒</span>Privacy model</h3>
+      <div class="alert err">Only testimonials with <b>publish permission</b> are uploaded to GitHub. Everything else stays in this browser's localStorage and is never sent anywhere unless a webhook is configured. If you clear your browser data you will lose unpublished reviews — use <b>Download all (backup)</b> regularly.</div>
+    </div>
+
     <div class="card sec">
       <h3><span>ℹ️</span>URLs</h3>
       <p style="color:var(--mu);line-height:1.8;font-size:13px">
         <b>Customer review link:</b><br>
-        <code style="background:#f1f5f9;padding:3px 8px;border-radius:6px;font-size:12.5px">${location.origin}${location.pathname}</code>
+        <code style="background:#f1f5f9;padding:3px 8px;border-radius:6px;font-size:12.5px">${esc(location.origin+location.pathname)}</code>
         <br><br>
         <b>Admin URL (your bookmark):</b><br>
-        <code style="background:#f1f5f9;padding:3px 8px;border-radius:6px;font-size:12.5px">${location.origin}${location.pathname}#admin</code>
+        <code style="background:#f1f5f9;padding:3px 8px;border-radius:6px;font-size:12.5px">${esc(location.origin+location.pathname+'#admin')}</code>
       </p>
     </div>
   `;
 }
 
-function bindAdmin(){}
-
 /* =========================================================
    ADMIN EVENTS
 ========================================================= */
 document.addEventListener('click',async e=>{
-  if(!isLoggedIn||!ADMIN_MODE)return;
+  if(!isLoggedIn||!isAdminMode())return;
   const t=e.target;
   const c=s=>t.closest(s);
   if(c('.nv')&&c('.nv').dataset.v)return setView(c('.nv').dataset.v);
@@ -993,10 +1648,7 @@ document.addEventListener('click',async e=>{
   if(c('[data-open]')){
     activeId=c('[data-open]').dataset.open;
     const item=cur();
-    if(item&&item.source==='customer'&&!item.seenByAdmin){
-      item.seenByAdmin=true;
-      touch();
-    }
+    if(item&&!item.seenByAdmin){item.seenByAdmin=true;touch();}
     renderAdminView();scrollTo(0,0);return;
   }
   if(c('#stars span')){
@@ -1005,16 +1657,6 @@ document.addEventListener('click',async e=>{
     item.rating=v;
     $('#ratingLabel').textContent=v+' — '+RATING_LABELS[v];
     $$('#stars span').forEach(s=>s.classList.toggle('on',+s.dataset.v<=v));
-    touch();return;
-  }
-  if(c('.tg-item')){
-    const item=c('.tg-item');
-    const key=item.dataset.tog;
-    const tc=cur();if(!tc)return;
-    tc[key]=!tc[key];
-    item.classList.toggle('on',tc[key]);
-    const cb=item.querySelector('input[type=checkbox]');
-    if(cb)cb.checked=tc[key];
     touch();return;
   }
   if(c('[data-rm]')){
@@ -1051,7 +1693,10 @@ document.addEventListener('click',async e=>{
     toast('Sample loaded','ok');
   }
   else if(a==='cfg'||a==='test'){
-    ['owner','repo','branch','dataPath','token'].forEach(k=>cfg[k]=$('#c_'+k).value.trim());
+    ['owner','repo','branch','dataPath','token','webhook','privacyUrl'].forEach(k=>{
+      const el=$('#c_'+k);
+      if(el)cfg[k]=el.value.trim();
+    });
     localStorage.setItem(CK,JSON.stringify(cfg));
     pill();
     if(a==='cfg')toast('Settings saved','ok');
@@ -1074,7 +1719,7 @@ document.addEventListener('click',async e=>{
 });
 
 document.addEventListener('input',e=>{
-  if(!isLoggedIn||!ADMIN_MODE)return;
+  if(!isLoggedIn||!isAdminMode())return;
   const t=e.target;
   if(t.id==='q'){
     q=t.value;
@@ -1099,34 +1744,38 @@ document.addEventListener('input',e=>{
 });
 
 document.addEventListener('change',async e=>{
-  if(!isLoggedIn||!ADMIN_MODE)return;
-  const up=e.target.dataset.up;
-  if(!up)return;
-  const item=cur();if(!item)return;
-  const fs=[...e.target.files];if(!fs.length)return;
-  toast('Processing…');
-  item[up]=await compress(fs[0]);
-  touch();renderAdminView();
-  toast('Photo added','ok');
-});
+  if(!isLoggedIn||!isAdminMode())return;
 
-function compress(f){
-  return new Promise(res=>{
-    const r=new FileReader;
-    r.onload=()=>{
-      const im=new Image;
-      im.onload=()=>{
-        const s=Math.min(1,1000/Math.max(im.width,im.height));
-        const c=document.createElement('canvas');
-        c.width=im.width*s;c.height=im.height*s;
-        c.getContext('2d').drawImage(im,0,0,c.width,c.height);
-        res({filename:f.name.replace(/\.\w+$/,'')+'.jpg',dataUrl:c.toDataURL('image/jpeg',.82)});
-      };
-      im.src=r.result;
-    };
-    r.readAsDataURL(f);
-  });
-}
+  if(e.target.id==='sortSel'){
+    sortBy=e.target.value;
+    renderAdminView();
+    return;
+  }
+
+  const up=e.target.dataset.up;
+  if(up){
+    const item=cur();if(!item)return;
+    const fs=[...e.target.files];if(!fs.length)return;
+    toast('Processing…');
+    try{
+      item[up]=await compressFile(fs[0],MAX_PHOTO_LOCAL,PHOTO_QUALITY_LOCAL);
+      touch();renderAdminView();
+      toast('Photo added','ok');
+    }catch(err){
+      console.warn(err);
+      toast('Could not read image','er');
+    }
+    return;
+  }
+
+  const tg=e.target.closest?.('.tg-item');
+  if(tg&&tg.dataset.tog&&e.target.type==='checkbox'){
+    const item=cur();if(!item)return;
+    item[tg.dataset.tog]=e.target.checked;
+    tg.classList.toggle('on',e.target.checked);
+    touch();
+  }
+});
 
 function downloadJSON(publishedOnly){
   const data=payload(true,publishedOnly);
@@ -1141,7 +1790,7 @@ function downloadJSON(publishedOnly){
 }
 
 document.addEventListener('keydown',e=>{
-  if(!isLoggedIn||!ADMIN_MODE)return;
+  if(!isLoggedIn||!isAdminMode())return;
   if((e.ctrlKey||e.metaKey)&&e.key==='s'){e.preventDefault();ghSave(true)}
   if((e.ctrlKey||e.metaKey)&&e.key==='k'){e.preventDefault();const q=$('#q');if(q){q.focus();q.select()}}
   if(e.key==='Escape'&&activeId){activeId=null;renderAdminView()}
@@ -1149,16 +1798,19 @@ document.addEventListener('keydown',e=>{
 
 addEventListener('beforeunload',e=>{
   saveLocal();
-  if(dirty&&cloud()&&ADMIN_MODE){e.preventDefault();e.returnValue=''}
+  if(dirty&&cloud()&&isAdminMode()){e.preventDefault();e.returnValue=''}
 });
 
 document.addEventListener('visibilitychange',()=>{
-  if(document.hidden&&ADMIN_MODE){
+  if(document.hidden&&isAdminMode()){
     saveLocal();
     if(dirty&&cloud())ghSave(false);
   }
 });
 
+/* =========================================================
+   BOOT
+========================================================= */
 loadLocal();
 render();
 </script>
