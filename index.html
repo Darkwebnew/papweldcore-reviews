@@ -35,7 +35,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 input,select,textarea{font:inherit;width:100%;padding:11px 13px;border:1.5px solid var(--line);border-radius:10px;background:#fff;color:var(--tx);outline:0;transition:.15s}
 input:focus,select:focus,textarea:focus{border-color:var(--b);box-shadow:0 0 0 4px rgba(29,78,216,.1)}
 textarea{min-height:84px;resize:vertical}
-.side{position:fixed;inset:0 auto 0 0;width:268px;background:linear-gradient(180deg,var(--navy),#0a1230);color:#fff;display:flex;flex-direction:column;z-index:50;transition:transform .3s}
+.side{position:fixed;inset:0 auto 0 0;width:268px;background:linear-gradient(180deg,var(--navy),#0a1230);color:#fff;display:flex;flex-direction:column;z-index:50;transition:transform .3s;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}
 .side::before{content:"";position:absolute;inset:0 0 auto;height:4px;background:var(--grad)}
 .logo{margin:22px 16px 8px;background:#fff;border-radius:14px;padding:12px 14px;box-shadow:0 6px 20px rgba(0,0,0,.25)}
 .logo img{width:100%;height:auto;max-height:64px;object-fit:contain}
@@ -49,8 +49,8 @@ textarea{min-height:84px;resize:vertical}
 .sf{padding:16px;border-top:1px solid rgba(255,255,255,.08);font-size:12px;color:rgba(255,255,255,.6)}
 .bar{height:6px;background:rgba(255,255,255,.12);border-radius:9px;overflow:hidden;margin-top:6px}
 .bar i{display:block;height:100%;background:var(--grad);border-radius:9px;transition:width .4s}
-.main{margin-left:268px;min-height:100vh}
-.top{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:12px;padding:14px 28px;background:rgba(242,244,250,.85);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.main{margin-left:268px;min-height:100vh;min-height:100dvh}
+.top{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:12px;padding:14px max(28px,env(safe-area-inset-right)) 14px max(28px,env(safe-area-inset-left));background:rgba(242,244,250,.85);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
 .top h1{font-size:20px;font-weight:800;letter-spacing:-.3px;flex:1}
 .top input{max-width:260px;padding:9px 13px}
 .burger{display:none;width:38px;height:38px;border-radius:10px;background:var(--navy);color:#fff;font-size:18px}
@@ -66,7 +66,7 @@ textarea{min-height:84px;resize:vertical}
 .btn.dn{color:#b91c1c;background:#fef2f2;border-color:#fecaca}
 .btn:disabled{opacity:.5;cursor:wait;transform:none!important}
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
+.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(min(320px,100%),1fr))}
 .stats{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin-bottom:22px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh)}
 .stat{padding:20px;position:relative;overflow:hidden}
@@ -155,7 +155,7 @@ textarea{min-height:84px;resize:vertical}
 .alert.err{background:#fef2f2;border-color:#fecaca;color:#991b1b}
 .privacy{background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:14px;margin-top:14px;font-size:12.5px;color:#1e40af;line-height:1.6}
 .privacy b{font-weight:800}
-.login-wrap{min-height:100vh;display:grid;place-items:center;padding:20px;background:radial-gradient(circle at 20% 10%,rgba(244,81,30,.08),transparent 40%),radial-gradient(circle at 80% 90%,rgba(124,58,237,.08),transparent 40%),var(--bg)}
+.login-wrap{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:20px;padding-top:max(20px,env(safe-area-inset-top));padding-bottom:max(20px,env(safe-area-inset-bottom));background:radial-gradient(circle at 20% 10%,rgba(244,81,30,.08),transparent 40%),radial-gradient(circle at 80% 90%,rgba(124,58,237,.08),transparent 40%),var(--bg)}
 .login-card{width:100%;max-width:420px;background:#fff;border-radius:20px;padding:32px 28px;box-shadow:0 20px 60px rgba(11,21,51,.12),0 4px 12px rgba(11,21,51,.05);border:1px solid var(--line);position:relative;overflow:hidden}
 .login-card::before{content:"";position:absolute;inset:0 0 auto;height:5px;background:var(--grad)}
 .login-logo{text-align:center;margin-bottom:22px}
@@ -167,7 +167,7 @@ textarea{min-height:84px;resize:vertical}
 .login-card .btn{width:100%;justify-content:center;padding:13px;font-size:14px}
 .login-err{background:#fef2f2;color:#991b1b;padding:10px 14px;border-radius:10px;font-size:12.5px;font-weight:600;margin-bottom:14px;text-align:center;border:1px solid #fecaca}
 .login-hint{text-align:center;font-size:11.5px;color:var(--mu);margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}
-.cust-wrap{min-height:100vh;padding:24px 16px 60px;background:radial-gradient(circle at 10% 0%,rgba(244,81,30,.06),transparent 40%),radial-gradient(circle at 90% 100%,rgba(29,78,216,.06),transparent 40%),var(--bg)}
+.cust-wrap{min-height:100vh;min-height:100dvh;padding:24px 16px 60px;padding-top:max(24px,env(safe-area-inset-top));padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right));background:radial-gradient(circle at 10% 0%,rgba(244,81,30,.06),transparent 40%),radial-gradient(circle at 90% 100%,rgba(29,78,216,.06),transparent 40%),var(--bg)}
 .cust-container{max-width:560px;margin:0 auto}
 .cust-header{text-align:center;padding:24px 16px 26px;margin-bottom:24px;background:#fff;border-radius:20px;box-shadow:0 8px 30px rgba(11,21,51,.08);position:relative;overflow:hidden}
 .cust-header::before{content:"";position:absolute;inset:0 0 auto;height:5px;background:var(--grad)}
@@ -203,7 +203,7 @@ textarea{min-height:84px;resize:vertical}
 .pub-skel div:nth-child(2){width:90%}
 .pub-skel div:nth-child(3){width:70%}
 @keyframes sh{0%{background-position:200% 0}100%{background-position:-200% 0}}
-.thanks-wrap{min-height:100vh;display:grid;place-items:center;padding:24px 16px;background:radial-gradient(circle at 50% 0%,rgba(16,185,129,.08),transparent 50%),radial-gradient(circle at 50% 100%,rgba(29,78,216,.08),transparent 50%),var(--bg)}
+.thanks-wrap{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:24px 16px;padding-top:max(24px,env(safe-area-inset-top));padding-bottom:max(24px,env(safe-area-inset-bottom));background:radial-gradient(circle at 50% 0%,rgba(16,185,129,.08),transparent 50%),radial-gradient(circle at 50% 100%,rgba(29,78,216,.08),transparent 50%),var(--bg)}
 .thanks-card{max-width:520px;width:100%;background:#fff;border-radius:24px;padding:48px 32px 36px;text-align:center;box-shadow:0 20px 60px rgba(11,21,51,.12);border:1px solid var(--line);position:relative;overflow:hidden;animation:pop .4s ease}
 @keyframes pop{0%{opacity:0;transform:scale(.95) translateY(10px)}100%{opacity:1;transform:none}}
 .thanks-card::before{content:"";position:absolute;inset:0 0 auto;height:5px;background:linear-gradient(90deg,#10b981,#0ea5a4)}
@@ -217,29 +217,37 @@ textarea{min-height:84px;resize:vertical}
 .share-btn{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:10px;font-size:12.5px;font-weight:700;text-decoration:none;background:#fff;border:1.5px solid var(--line);color:var(--tx);cursor:pointer;transition:.15s}
 .share-btn:hover{transform:translateY(-1px);box-shadow:var(--sh)}
 .share-btn.wa{background:#25d366;color:#fff;border-color:#25d366}
-.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,30px);background:var(--navy);color:#fff;padding:12px 22px;border-radius:99px;font-weight:600;opacity:0;pointer-events:none;transition:.3s;z-index:200;box-shadow:var(--sh);max-width:90vw;text-align:center}
+.toast{position:fixed;left:50%;bottom:max(28px,env(safe-area-inset-bottom));transform:translate(-50%,30px);background:var(--navy);color:#fff;padding:12px 22px;border-radius:99px;font-weight:600;opacity:0;pointer-events:none;transition:.3s;z-index:200;box-shadow:var(--sh);max-width:90vw;text-align:center}
 .toast.show{opacity:1;transform:translate(-50%,0)}.toast.ok{background:#047857}.toast.er{background:#b91c1c}
 .ov{display:none}
 .sort-sel{max-width:180px;padding:9px 12px;font-size:12.5px}
+.noscript-msg{position:fixed;inset:0;z-index:999;display:grid;place-items:center;background:var(--navy);color:#fff;padding:30px;text-align:center;font:600 15px Inter,sans-serif}
 @media(max-width:860px){
   .side{transform:translateX(-100%)}.side.open{transform:none}.main{margin-left:0}.burger{display:block}
   .ov.show{display:block;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:45}
-  .top{padding:10px 12px;gap:8px;flex-wrap:wrap}
+  .top{padding:10px max(12px,env(safe-area-inset-right)) 10px max(12px,env(safe-area-inset-left));gap:8px;flex-wrap:wrap}
   .top h1{font-size:16px;flex:1;order:1;min-width:0}
   .burger{order:0}
-  .top input{display:block;max-width:none;flex:1 0 100%;order:4;padding:8px 12px;font-size:13px}
+  .top input{display:block;max-width:none;flex:1 0 100%;order:4;padding:8px 12px}
   .pill{order:2;padding:7px 11px;font-size:11px}
   #saveNow{order:3;padding:9px 13px;font-size:12px}
-  .pg{padding:16px 14px 60px}.g2{grid-template-columns:1fr}.edtop{top:60px}
+  .pg{padding:16px 14px 60px}
+  .g2{grid-template-columns:1fr}
+  .edtop{position:relative;top:auto}
   .sort-sel{max-width:none;width:100%}
   .photo-preview{flex-direction:column;align-items:stretch;text-align:center}
   .photo-thumb{margin:0 auto}
   .photo-actions{flex-direction:row}
   .photo-actions button{flex:1}
+  input,select,textarea{font-size:16px !important}
 }
 </style>
 </head>
 <body>
+
+<noscript>
+  <div class="noscript-msg">⚠️ This page requires JavaScript. Please enable it and reload.</div>
+</noscript>
 
 <div id="app"></div>
 <div class="toast" id="toast"></div>
@@ -256,8 +264,8 @@ textarea{min-height:84px;resize:vertical}
        btoa("yournewvalue")
 ========================================================= */
 const AUTH_ENC = {
-  u: 'cGFwd2VsZGNvcmU=',        // "papweldcore"
-  p: 'cGFwd2VsZGNvcmVAMjAyNg==' // "papweldcore@2026"
+  u: 'cGFwd2VsZGNvcmU=',
+  p: 'cGFwd2VsZGNvcmVAMjAyNg=='
 };
 const b64decUTF8 = s => {
   try {
@@ -269,10 +277,12 @@ const b64decUTF8 = s => {
 const ADMIN_USER = b64decUTF8(AUTH_ENC.u);
 const ADMIN_PASS = b64decUTF8(AUTH_ENC.p);
 
-const REVIEW_EMAIL = 'reviews@papweld.com';   /* fallback channel for photos */
+const REVIEW_EMAIL = 'reviews@papweld.com';
 
+/* ✅ FIX m1 — case-insensitive admin detection */
 const isAdminMode = () =>
-  location.hash === '#admin' || new URLSearchParams(location.search).has('admin');
+  location.hash.toLowerCase().startsWith('#admin') ||
+  new URLSearchParams(location.search).has('admin');
 
 const CK='papweld_gh_t', DB='papweld_test_v6', LK='papweld_login_t';
 
@@ -289,8 +299,8 @@ try{Object.assign(cfg,JSON.parse(localStorage.getItem(CK)||'{}'))}catch(e){}
 
 const LOCAL_DELAY=800, CLOUD_DELAY=5000, MAX_REVIEW=1500, MAX_TITLE=120;
 const RATING_LABELS={1:'Poor',2:'Fair',3:'Good',4:'Very Good',5:'Excellent'};
-const MAX_PHOTO_LOCAL=1000;      /* long-edge px for local storage */
-const MAX_PHOTO_WEBHOOK=600;     /* long-edge px sent to webhook */
+const MAX_PHOTO_LOCAL=1000;
+const MAX_PHOTO_WEBHOOK=600;
 const PHOTO_QUALITY_LOCAL=0.82;
 const PHOTO_QUALITY_WEBHOOK=0.7;
 
@@ -304,7 +314,7 @@ const MACHINES=[
 
 let S={testimonials:[]};
 let isLoggedIn=sessionStorage.getItem(LK)==='yes';
-let view='dash', activeId=null, q='', sortBy='newest', dirty=false, saving=false, lastSave=null, tL, tC;
+let view='dash', activeId=null, q='', sortBy='newest', dirty=false, saving=false, lastSave=null, lastEditAt=0, storageFull=false, tL, tC;
 let customerStage='form';
 let lastSubmitted=null;
 
@@ -321,6 +331,16 @@ const avgRating=(items)=>{
   if(!p.length)return 0;
   return Math.round((p.reduce((s,t)=>s+t.rating,0)/p.length)*10)/10;
 };
+
+/* ✅ FIX M5 — stable fingerprint for a dataUrl */
+function hashDataUrl(d){
+  if(!d) return '';
+  const len = d.length;
+  const s = d.slice(0,60)+'|'+len+'|'+d.slice(-60);
+  let h = 0;
+  for(let i=0;i<s.length;i++) h = (h*31 + s.charCodeAt(i)) | 0;
+  return 'h'+h+'_'+len;
+}
 
 function ago(iso){
   if(!iso)return '';
@@ -354,11 +374,7 @@ function toast(m,t){
 }
 
 /* =========================================================
-   ✅ FIX #3 — single global paste listener.
-   bindCustomer() runs on every render; previously it added a
-   new 'paste' listener each time (they were never removed).
-   Now we add ONE listener here and let bindCustomer set
-   window.__custPaste to the current handler.
+   Single global paste listener for the customer form.
 ========================================================= */
 window.__custPaste = null;
 document.addEventListener('paste', e => {
@@ -439,6 +455,7 @@ const SAMPLE={
 
 /* =========================================================
    LOCAL STORAGE
+   ✅ FIX B2 — return boolean + surface quota errors.
 ========================================================= */
 function saveLocal(){
   try{
@@ -446,13 +463,26 @@ function saveLocal(){
     if(j.length>4.5e6){
       const lite={testimonials:S.testimonials.map(t=>({
         ...t,
-        photo:t.photo&&t.photo.url?{...t.photo,dataUrl:null}:null
+        photo: t.photo
+          ? (t.photo.url ? { ...t.photo, dataUrl: null } : { ...t.photo })
+          : null,
       }))};
       localStorage.setItem(DB,JSON.stringify(lite));
     }else{
       localStorage.setItem(DB,j);
     }
-  }catch(e){console.warn(e)}
+    storageFull=false;
+    return true;
+  }catch(e){
+    console.warn(e);
+    if(e && e.name==='QuotaExceededError'){
+      if(!storageFull){
+        storageFull=true;
+        toast('⚠️ Browser storage full — download a backup now','er');
+      }
+    }
+    return false;
+  }
 }
 function loadLocal(){
   try{
@@ -469,6 +499,7 @@ function loadLocal(){
 ========================================================= */
 function touch(){
   dirty=true;
+  lastEditAt=Date.now();   // ✅ FIX B3
   clearTimeout(tL);tL=setTimeout(saveLocal,LOCAL_DELAY);
   pill();
   if(cloud()){clearTimeout(tC);tC=setTimeout(()=>ghSave(false),CLOUD_DELAY)}
@@ -479,6 +510,7 @@ function pill(state,txt){
   const unpublished=S.testimonials.filter(x=>!x.publishPermission).length;
   if(saving){c='sync';t='Saving…'}
   else if(state==='err'){c='err';t=txt||'Save failed'}
+  else if(storageFull){c='err';t='Storage full — export now'}
   else if(dirty){c='dirty';t=cloud()?'Unsaved · autosave soon':'Saved on this device'}
   else if(!cloud()){t='Saved locally'}
   else{
@@ -510,10 +542,13 @@ async function ghPut(p,b64,sha){
   return r.json();
 }
 async function upload(obj,path){
-  if(!obj||!obj.dataUrl||obj.up===obj.dataUrl.length)return;
+  if(!obj||!obj.dataUrl) return;
+  const sig = hashDataUrl(obj.dataUrl);   // ✅ FIX M5
+  if(obj.up === sig) return;
   const ex=await ghGet(path).catch(()=>null);
   await ghPut(path,obj.dataUrl.split(',')[1],ex&&ex.sha);
-  obj.url=RAW(path);obj.up=obj.dataUrl.length;
+  obj.url=RAW(path)+'?v='+Date.now();
+  obj.up=sig;
 }
 function clean(t,inline){
   const f=o=>o&&{filename:o.filename||'',url:o.url||null,...(inline&&o.dataUrl?{dataUrl:o.dataUrl}:{})};
@@ -563,6 +598,7 @@ async function ghSave(manual){
     return;
   }
   if(saving)return;
+  const startedAt=Date.now();   // ✅ FIX B3
   saving=true;pill();clearTimeout(tC);
   try{
     const published=S.testimonials.filter(t=>t.publishPermission);
@@ -573,7 +609,8 @@ async function ghSave(manual){
     const ex=await ghGet(cfg.dataPath).catch(()=>null);
     await ghPut(cfg.dataPath,b64,ex&&ex.sha);
     saveLocal();
-    dirty=false;lastSave=new Date();saving=false;
+    if(lastEditAt < startedAt) dirty=false;   // ✅ FIX B3
+    lastSave=new Date();saving=false;
     pill();
     if(manual){
       const hidden=S.testimonials.length-published.length;
@@ -611,7 +648,7 @@ async function ghLoad(){
 }
 
 /* =========================================================
-   WEBHOOK (for remote customer submissions)
+   WEBHOOK
 ========================================================= */
 async function postWebhook(t){
   if(!cfg.webhook)return false;
@@ -736,6 +773,8 @@ function bindLogin(mode){
 
 /* =========================================================
    CUSTOMER FORM
+   ✅ FIX m3 — publishPermission now defaults to UNCHECKED
+   (opt-in, GDPR/DPDP compliant).
 ========================================================= */
 function renderCustomerForm(){
   const machineOpts=MACHINES.map(m=>`<option value="${esc(m)}"></option>`).join('');
@@ -832,8 +871,8 @@ function renderCustomerForm(){
 
           <div class="cust-card">
             <h3>Permission &amp; consent</h3>
-            <label class="tg-item on" id="permToggle">
-              <input type="checkbox" name="publishPermission" checked>
+            <label class="tg-item" id="permToggle">
+              <input type="checkbox" name="publishPermission">
               <div class="tg-check">✓</div>
               <div class="tg-text">I allow PAP Weld Core to publish my review on their website
                 <small>Your name, company name and review will be shown publicly</small>
@@ -851,7 +890,7 @@ function renderCustomerForm(){
         </form>
         <div class="cust-foot">
           <button class="btn" style="margin-bottom:16px;background:#fff;border-color:var(--line)" onclick="previewSample()">
-            👁️ Preview with sample data
+            👁️ Fill with demo data
           </button>
           <b>PAP Weld Core Automation Private Limited</b><br>
           Chennai, Tamil Nadu · papweld.com
@@ -960,8 +999,8 @@ function bindCustomer(){
     cb.addEventListener('change',()=>perm.classList.toggle('on',cb.checked));
   }
 
-  /* ---------- photo upload: click / drag / paste ---------- */
-  let custPhoto=null;   /* {filename,dataUrl,width,height,size} */
+  /* ---------- photo upload ---------- */
+  let custPhoto=null;
   const photoBox=document.getElementById('photoBox');
   const photoInput=document.getElementById('photoInput');
   const photoDrop=document.getElementById('photoDrop');
@@ -1020,10 +1059,9 @@ function bindCustomer(){
   photoInput?.addEventListener('change',e=>{
     const f=e.target.files&&e.target.files[0];
     if(f)handleFile(f);
-    e.target.value=''; /* allow picking the same file again */
+    e.target.value='';
   });
 
-  /* drag & drop — bind to the whole box, not just the inner label */
   ['dragenter','dragover'].forEach(ev=>
     photoBox?.addEventListener(ev,e=>{
       e.preventDefault();e.stopPropagation();
@@ -1046,7 +1084,6 @@ function bindCustomer(){
     if(it&&it.kind==='file'){const g=it.getAsFile();if(g)handleFile(g);}
   });
 
-  /* ---------- ✅ FIX #3: register the paste handler for the ONE global listener ---------- */
   window.__custPaste = function(e){
     if(customerStage!=='form')return;
     const items=(e.clipboardData&&e.clipboardData.items)||[];
@@ -1067,11 +1104,10 @@ function bindCustomer(){
     });
   }
 
-  /* ---------- ✅ FIX #1 + #5: submit with real validation ---------- */
+  /* ---------- submit ---------- */
   form.addEventListener('submit',async e=>{
     e.preventDefault();
 
-    /* Honeypot — real bot protection. On trip, show thanks but save nothing. */
     const hp=form.querySelector('[name=website]');
     if(hp&&hp.value){customerStage='thanks';lastSubmitted=null;render();return;}
 
@@ -1081,37 +1117,13 @@ function bindCustomer(){
     const reviewTitle =(fd.get('reviewTitle') ||'').trim();
     const reviewText  =(fd.get('reviewText')  ||'').trim();
 
-    /* ✅ Required-field validation (the form is `novalidate`, so we do it here) */
-    if(!customerName){
-      toast('Please enter your name','er');
-      form.querySelector('[name=customerName]').focus();
-      return;
-    }
-    if(!companyName){
-      toast('Please enter your company name','er');
-      form.querySelector('[name=companyName]').focus();
-      return;
-    }
-    if(!currentRating){
-      toast('Please pick a star rating','er');
-      starsEl.scrollIntoView({behavior:'smooth',block:'center'});
-      return;
-    }
-    if(!reviewTitle){
-      toast('Please add a review headline','er');
-      form.querySelector('[name=reviewTitle]').focus();
-      return;
-    }
-    if(!reviewText){
-      toast('Please write your review','er');
-      form.querySelector('[name=reviewText]').focus();
-      return;
-    }
+    if(!customerName){ toast('Please enter your name','er'); form.querySelector('[name=customerName]').focus(); return; }
+    if(!companyName){ toast('Please enter your company name','er'); form.querySelector('[name=companyName]').focus(); return; }
+    if(!currentRating){ toast('Please pick a star rating','er'); starsEl.scrollIntoView({behavior:'smooth',block:'center'}); return; }
+    if(!reviewTitle){ toast('Please add a review headline','er'); form.querySelector('[name=reviewTitle]').focus(); return; }
+    if(!reviewText){ toast('Please write your review','er'); form.querySelector('[name=reviewText]').focus(); return; }
     const consent=form.querySelector('[name=consent]');
-    if(consent&&!consent.checked){
-      toast('Please tick the consent box','er');
-      consent.focus();return;
-    }
+    if(consent&&!consent.checked){ toast('Please tick the consent box','er'); consent.focus(); return; }
 
     const t=mk({
       customerName,
@@ -1138,11 +1150,9 @@ function bindCustomer(){
     S.testimonials.unshift(t);
     saveLocal();
 
-    /* 1. Deliver to webhook (works for every customer) */
     if(cfg.webhook){
       postWebhook(t).catch(err=>console.warn('webhook',err));
     }
-    /* 2. Push to GitHub if this browser happens to hold an admin token */
     if(cloud()){
       try{await ghSave(false);}catch(err){console.warn('Silent sync failed:',err);}
     }
@@ -1153,7 +1163,7 @@ function bindCustomer(){
   });
 }
 
-/* ---------- ✅ FIX #2: previewSample now really sets the rating ---------- */
+/* ---------- previewSample (renamed button) ---------- */
 window.previewSample=function(){
   const form=document.getElementById('custForm');
   if(!form)return;
@@ -1171,17 +1181,14 @@ window.previewSample=function(){
     const el=form.querySelector('[name="'+k+'"]');
     if(el){
       el.value=s[k];
-      /* fire input so character counters update */
       el.dispatchEvent(new Event('input',{bubbles:true}));
     }
   });
-  /* Click the real 5-star span — this drives the closure variable
-     that the submit handler reads, so Submit actually works. */
   const star5=document.querySelector('#custStars [data-v="5"]');
   if(star5)star5.click();
   const consent=form.querySelector('[name=consent]');
   if(consent)consent.checked=true;
-  toast('Sample data filled — click Submit to see Thank You page','ok');
+  toast('Demo data filled — click Submit to see Thank You page','ok');
   form.scrollIntoView({behavior:'smooth',block:'start'});
 };
 
@@ -1191,8 +1198,6 @@ window.previewSample=function(){
 async function loadPublicReviews(){
   const el=document.getElementById('pubReviews');
   if(!el)return;
-  /* ✅ FIX #4: when logged in, only show testimonials the customer
-     permitted us to publish — never leak un-permitted ones. */
   if(isLoggedIn&&S.testimonials.length){
     renderPublicReviews(S.testimonials.filter(t=>t.publishPermission),el);
     return;
@@ -1433,6 +1438,7 @@ function dashView(){
       <div class="card stat" style="--c:var(--a)"><small>Avg. rating</small><h2>${avg.toFixed(1)} ★</h2></div>
       <div class="card stat" style="--c:var(--p)"><small>New (customer)</small><h2>${newOnes.length}</h2></div>
     </div>
+    ${storageFull?'<div class="alert err">🔴 <b>Browser storage is full.</b> Your edits are only in memory — click <b>Download all (backup)</b> now to back up, then remove some items.</div>':''}
     ${!cloud()?'<div class="alert">⚠️ GitHub is not connected. Open <b>Connection</b> to set the token. Without it nothing is pushed to your repo.</div>':''}
     ${!cfg.webhook?'<div class="alert">📮 <b>No webhook configured.</b> Customer submissions from other devices will NOT reach you. Add a Formspree / Google Sheets / Zapier URL in <b>Connection</b>.</div>':'<div class="alert ok">📮 Webhook configured — remote submissions and photos will be delivered.</div>'}
     ${localOnly.length?`<div class="alert">🔒 <b>${localOnly.length}</b> testimonial${localOnly.length>1?'s':''} without publish permission stay on this device only and are never uploaded to GitHub.</div>`:''}
@@ -1689,7 +1695,17 @@ document.addEventListener('click',async e=>{
   if(c('.nv')&&c('.nv').dataset.v)return setView(c('.nv').dataset.v);
   if(c('#bg')){$('#side').classList.toggle('open');$('#ov').classList.toggle('show');return}
   if(c('#ov')){$('#side').classList.remove('open');$('#ov').classList.remove('show');return}
-  if(c('#saveNow'))return ghSave(true);
+  // ✅ FIX M6 — Save button busy state
+  if(c('#saveNow')){
+    const btn=$('#saveNow');
+    if(btn.disabled) return;
+    btn.disabled=true;
+    const orig=btn.textContent;
+    btn.textContent='💾 Saving…';
+    try{ await ghSave(true); }
+    finally{ btn.disabled=false; btn.textContent=orig; }
+    return;
+  }
   if(c('[data-open]')){
     activeId=c('[data-open]').dataset.open;
     const item=cur();
@@ -1738,10 +1754,17 @@ document.addEventListener('click',async e=>{
     toast('Sample loaded','ok');
   }
   else if(a==='cfg'||a==='test'){
-    ['owner','repo','branch','dataPath','token','webhook','privacyUrl'].forEach(k=>{
+    ['owner','repo','branch','token','webhook','privacyUrl'].forEach(k=>{
       const el=$('#c_'+k);
       if(el)cfg[k]=el.value.trim();
     });
+    // ✅ FIX M4 — validate dataPath
+    const dpEl=$('#c_dataPath');
+    if(dpEl){
+      const dp=dpEl.value.trim();
+      cfg.dataPath = dp || 'testimonials.json';
+      if(!/\.json$/i.test(cfg.dataPath)) cfg.dataPath += '.json';
+    }
     localStorage.setItem(CK,JSON.stringify(cfg));
     pill();
     if(a==='cfg')toast('Settings saved','ok');
@@ -1843,7 +1866,7 @@ document.addEventListener('keydown',e=>{
 
 addEventListener('beforeunload',e=>{
   saveLocal();
-  if(dirty&&cloud()&&isAdminMode()){e.preventDefault();e.returnValue=''}
+  if((dirty||storageFull)&&cloud()&&isAdminMode()){e.preventDefault();e.returnValue=''}
 });
 
 document.addEventListener('visibilitychange',()=>{
